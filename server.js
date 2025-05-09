@@ -1,7 +1,6 @@
 // Load environment variables from .env file
 require('dotenv').config();
 
-// Import required packages
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -12,10 +11,23 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Apply middleware
-app.use(cors());
+// Enhanced CORS configuration
+app.use(cors({
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}));
+
+// Apply other middleware
 app.use(bodyParser.json());
 app.use(express.static('public'));
+
+// Add OPTIONS handling for preflight requests
+app.options('*', cors()); // Enable preflight for all routes
+
 
 // Connect to MongoDB
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/wedding';

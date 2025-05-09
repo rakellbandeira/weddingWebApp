@@ -69,11 +69,12 @@ function initRsvpForm() {
       document.getElementById('rsvpSubmitBtn').disabled = true;
       
       // Send to backend
-      fetch('/api/rsvp', {
+      fetch('https://wedding-web-app-one.vercel.app/api/advice', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
+        mode: 'cors',
         body: JSON.stringify(guestData)
       })
       .then(response => {
@@ -240,11 +241,12 @@ function initRsvpForm() {
       
 
    
-        fetch(`${API_BASE_URL}/api/quiz-results`,{
+        fetch('https://wedding-web-app-one.vercel.app/api/quiz-results',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
+        mode: 'cors',
         body: JSON.stringify({
           name: guestName,
           score: score,
@@ -291,11 +293,12 @@ function initRsvpForm() {
       document.getElementById('songSubmitBtn').disabled = true;
       
       
-    fetch(`${API_BASE_URL}/api/song-requests`, {
+    fetch('https://wedding-web-app-one.vercel.app/api/song-requests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
+        mode: 'cors',
         body: JSON.stringify(songData)
       })
       .then(response => {
@@ -349,7 +352,7 @@ function initRsvpForm() {
       playlistContainer.innerHTML = '<p class="loading">Carregando playlist...</p>';
     
       
-      fetch(`${API_BASE_URL}/api/song-requests`)
+      fetch('https://wedding-web-app-one.vercel.app/api/song-requests')
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -476,11 +479,12 @@ function initRsvpForm() {
       document.getElementById('adviceSubmitBtn').disabled = true;
       
     
-        fetch(`${API_BASE_URL}/api/advice`, {
+      fetch('https://wedding-web-app-one.vercel.app/api/advice', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
+        mode: 'cors', // Explicitly set CORS mode
         body: JSON.stringify(adviceData)
       })
       .then(response => {
@@ -535,7 +539,7 @@ function initRsvpForm() {
       
 
       
-        fetch(`${API_BASE_URL}/api/advice`)      
+        fetch('https://wedding-web-app-one.vercel.app/api/advice')      
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
