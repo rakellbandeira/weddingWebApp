@@ -1,0 +1,728 @@
+/* Base styles and reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Color palette - Easy to modify */
+  :root {
+    /* Primary colors */
+    --primary-color: #8c7a62; /* Gold/bronze accent color */
+    --primary-color-light: #a99c8a;
+    --primary-color-dark: #6e5e4a;
+    
+    /* Secondary colors */
+    --secondary-color: #333333; /* Text color */
+    --secondary-color-light: #666666;
+    --secondary-color-dark: #1a1a1a;
+    
+    /* Neutral colors */
+    --white: #ffffff;
+    --light-bg: #f8f8f8;
+    --medium-bg: #f0f0f0;
+    --border-color: #dddddd;
+    
+    /* Feedback colors */
+    --success-color: #4CAF50;
+    --error-color: #F44336;
+    --warning-color: #FFC107;
+    --info-color: #2196F3;
+  }
+  
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--secondary-color);
+    line-height: 1.6;
+    background-color: var(--white);
+    font-size: 16px;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: normal;
+    color: var(--primary-color);
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  ul {
+    list-style: none;
+  }
+  
+  img {
+    margin-top: 10px;
+    max-width: 100%;
+
+  }
+  
+  /* Layout */
+  .section-container {
+    padding: 3rem 1.5rem;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  /* Mobile-first approach */
+  .site-header {
+    padding: 1rem;
+    text-align: center;
+    background-color: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .couple-names h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .main-nav ul {
+    display: none; /* Hide on mobile */
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;
+  }
+  
+  .mobile-menu-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .mobile-menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .mobile-menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  
+  .main-nav.active ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    text-align: center;
+    padding: 2rem 1rem 3rem;
+  }
+
+  
+  
+  .wedding-announcement h2 {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+  
+  .wedding-announcement h1 {
+    font-size: 3rem;
+   
+  }
+  
+  .wedding-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .couple-photo {
+    margin-top: 2rem;
+  }
+  
+  .couple-photo img {
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+#home, #celebrate{
+    background-image: url(/images/couple-main.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: visible;
+}
+
+
+
+
+
+  /* Button styles */
+  .btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .primary-btn {
+    background-color: var(--secondary-color);
+    color: var(--white);
+  }
+  
+  .primary-btn:hover {
+    background-color: var(--primary-color);
+  }
+  
+  .secondary-btn {
+    background-color: var(--white);
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+  }
+  
+  .secondary-btn:hover {
+    background-color: var(--light-bg);
+  }
+  
+  .registry-btn {
+    background-color: var(--white);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    margin: 0.5rem;
+  }
+  
+  .registry-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+  }
+  
+  /* Details Section */
+  .details-section {
+    background-color: var(--light-bg);
+    text-align: center;
+  }
+  
+  .details-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .details-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .detail-card {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .detail-card h3 {
+    font-size: 2rem;
+    
+  }
+  
+
+  .detail-card img{
+    opacity: 0.2;
+  }
+
+
+  .detail-time, .detail-location {
+    font-weight: 500;
+    
+  }
+  
+  /* RSVP Section */
+  .rsvp-section {
+    text-align: center;
+  }
+  
+  .rsvp-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .rsvp-form {
+    max-width: 500px;
+    margin: 2rem auto;
+    text-align: left;
+  }
+  
+  .rsvp-form input,
+  .rsvp-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    font-weight: normal;
+  }
+  
+  .radio-group input {
+    width: auto;
+    margin-right: 0.5rem;
+    margin-bottom: 0;
+  }
+  
+  .checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+  }
+  
+  .checkbox-group input {
+    width: auto;
+    margin-right: 0.5rem;
+    margin-bottom: 0;
+  }
+  
+  .conditional-form-group {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .confirmation-message {
+    background-color: var(--success-color);
+    color: var(--white);
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 2rem 0;
+    text-align: center;
+  }
+  
+  /* Activities Section */
+  .activities-section {
+    background-color: var(--light-bg);
+  }
+  
+  .activities-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .activity-card {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+  }
+  
+  .activity-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .activity-card p {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Quiz Styles */
+  .quiz-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .quiz-question h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 25px;
+    border: solid 1px var(--primary-color);
+    width: fit-content;
+
+    margin: 25px auto;
+  }
+
+  .quiz-question p{
+    font-size: 1.8rem;
+  }
+  
+  .quiz-options {
+    margin: 1.5rem 0;
+  }
+  
+  .quiz-option {
+    margin-bottom: 0.8rem;
+  }
+  
+  .quiz-option label {
+    /* display: flex;
+    align-items: center; */
+    cursor: pointer;
+  }
+  
+  .quiz-option input {
+    margin-right: 0.5rem;
+  }
+  
+  .fun-fact {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: var(--light-bg);
+    border-radius: 4px;
+  }
+  
+  .correct-answer {
+    color: var(--success-color);
+    font-weight: bold;
+  }
+  
+  .wrong-answer {
+    color: var(--error-color);
+    font-weight: bold;
+  }
+  
+  .quiz-results {
+    text-align: center;
+    padding: 1.5rem;
+  }
+  
+  .quiz-results .score {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1rem 0;
+  }
+  
+  /* Song Request Styles */
+  .song-request-form {
+    max-width: 500px;
+    margin: 0 auto 2rem;
+  }
+  
+  .song-request-form input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+  }
+  
+  .youtube-playlist-container {
+    margin-top: 2rem;
+  }
+  
+  .featured-video {
+    display: grid;
+    justify-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .now-playing {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .song-list {
+    margin-top: 1rem;
+  }
+  
+  .song-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .song-item.active {
+    background-color: var(--light-bg);
+  }
+  
+  .song-title {
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  
+  .song-artist, .song-requester {
+    font-size: 0.9rem;
+    color: var(--secondary-color-light);
+  }
+  
+  .play-button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Advice Styles */
+  .advice-form {
+    max-width: 500px;
+    margin: 0 auto 2rem;
+  }
+  
+  .advice-form input,
+  .advice-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+  }
+  
+  .advice-form textarea {
+    min-height: 120px;
+  }
+  
+  .advice-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .advice-card {
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .advice-text {
+    font-style: italic;
+    margin-bottom: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+  }
+  
+  .advice-author {
+    text-align: right;
+    font-size: 0.9rem;
+  }
+  
+  /* Registry Section */
+  .registry-section {
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+  
+  .registry-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .registry-section p {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+  
+  .registry-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  /* Celebrate With Us Section */
+  .celebrate-section {
+    text-align: center;
+    background-color: var(--light-bg);
+    padding: 3rem 1.5rem;
+  }
+  
+  .celebrate-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .celebrate-section p {
+    margin-bottom: 2rem;
+  }
+  
+  .couple-photo-large {
+    margin-top: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .couple-photo-large img {
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Footer */
+  .site-footer {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  
+  .site-footer .couple-names h3 {
+    color: var(--white);
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+  
+  .footer-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .footer-nav a:hover {
+    color: var(--primary-color-light);
+  }
+  
+  /* Utility Classes */
+  .loading {
+    text-align: center;
+    padding: 1rem;
+    color: var(--secondary-color-light);
+  }
+  
+  .error {
+    color: var(--error-color);
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .card-title{
+    font-size: 2rem;
+}
+  
+  /* Media Queries for Larger Screens */
+  @media (min-width: 768px) {
+    .section-container {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+    
+    .couple-names h1 {
+      margin-bottom: 0;
+    }
+    
+    .main-nav ul {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+    }
+    
+    .mobile-menu-toggle {
+      display: none;
+    }
+    
+    .wedding-announcement h1 {
+      font-size: 3.5rem;
+    }
+    
+    .wedding-date {
+      font-size: 1.5rem;
+    }
+    
+    .details-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .activity-card {
+      padding: 3rem;
+    }
+    
+    .advice-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .registry-buttons {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .hero-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    
+    .wedding-announcement {
+      text-align: left;
+      flex: 1;
+      margin-left: 12rem;
+      
+    }
+
+    .couple-names{
+        margin-left: 12rem;
+    }
+    
+    .couple-photo {
+      flex: 1;
+      margin-top: 0;
+    }
+    
+    .advice-cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }

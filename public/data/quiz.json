@@ -1,0 +1,51 @@
+[
+    {
+      "question": "Onde nos vimos pela primeira vez?",
+      "options": ["Na igreja", "Num encontro duplo", "Numa pizzaria",  "No Tinder"],
+      "correctAnswer": 2,
+      "funFact": "Nos encontramos no aniversário de um amigo em comum numa pizzaria!"
+    },
+    {
+      "question": "Nosso primeiro encontro foi o quê?",
+      "options": ["Passeio de carro", "Encontro duplo", "Cinema", "Pizza"],
+      "correctAnswer": 0,
+      "funFact": "Primeiro date foi um passeio de carro pela Ponta Negra e em vários lugares, conversando o caminho inteiro!"
+    },
+    {
+      "question": "Comida favorita do Mosiah?",
+      "options": ["Feijoada da mãe", "Buchada do sogro", "Galinhada da vovó", "Hambúrguer"],
+      "correctAnswer": 2,
+      "funFact": "O noivo diz que pela galinhada da vovó ele viaja kilômetros pra comer!"
+    },
+    {
+      "question": "Comida favorita da Rakell?",
+      "options": ["Pizza", "Feitos com Milho", "Torta de limão", "Pastel do pai"],
+      "correctAnswer": 1,
+      "funFact": "A noiva diz que comidas feitas com Milho são as melhores!"
+    },
+    {
+        "question": "Quem é cozinha mais?",
+        "options": ["Mosiah", "Rakell"],
+        "correctAnswer": 1,
+        "funFact": "O feijão dela é o melhor do mundo, segundo o noivo kkkk"
+    },
+    {
+        "question": "Quem é o homem da relação?",
+        "options": ["Mosiah", "Rakell"],
+        "correctAnswer": 0,
+        "funFact": "p.s: A última palavra é dele: Sim, senhora."
+    },
+    {
+        "question": "Quem sempre se atrasa?",
+        "options": ["Mosiah", "Rakell"],
+        "correctAnswer": 1,
+        "funFact": "p.s: A noiva nunca se atrasa, os outros é que são agoniados."
+    },
+    
+    {
+        "question": "Quem deu o primeiro beijo?",
+        "options": ["Mosiah", "Rakell"],
+        "correctAnswer": 0,
+        "funFact": "Há divergências sobre esse fato. Mas é melhor deixar quieto rsrs."
+    }
+  ]

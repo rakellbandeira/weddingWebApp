@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Admin Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Additional Admin-specific styles */
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .admin-nav {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .admin-nav button {
+      padding: 0.5rem 1rem;
+      background-color: var(--light-bg);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    .admin-nav button.active {
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+    
+    .admin-section {
+      display: none;
+    }
+    
+    .admin-section.active {
+      display: block;
+    }
+    
+    .admin-card {
+      background-color: var(--white);
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .admin-card-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    
+    .admin-card-body {
+      margin-bottom: 1rem;
+    }
+    
+    .admin-card-footer {
+      font-size: 0.9rem;
+      color: var(--secondary-color-light);
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+      background-color: var(--white);
+      padding: 1.5rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--secondary-color);
+    }
+    
+    .login-form {
+      max-width: 400px;
+      margin: 5rem auto;
+      padding: 2rem;
+      background-color: var(--white);
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      background-color: var(--white);
+    }
+    
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    th {
+      background-color: var(--light-bg);
+      font-weight: 500;
+    }
+    
+    .empty-message {
+      text-align: center;
+      padding: 2rem;
+      color: var(--secondary-color-light);
+    }
+    
+    .search-bar {
+      margin-bottom: 1rem;
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="login-container" class="login-form">
+    <h2>Admin Login</h2>
+    <form id="login-form">
+      <input type="password" id="password" placeholder="Password" class="search-bar" required>
+      <button type="submit" class="btn primary-btn">Login</button>
+    </form>
+  </div>
+
+  <div id="admin-dashboard" style="display: none;">
+    <header class="site-header">
+      <div class="couple-names">
+        <h1>Benjamin & Isabella</h1>
+      </div>
+      <div>
+        <h2>Admin Dashboard</h2>
+      </div>
+    </header>
+
+    <div class="admin-container">
+      <div class="admin-header">
+        <h2>Wedding Dashboard</h2>
+        <button id="logout-btn" class="btn secondary-btn">Logout</button>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="total-guests">0</div>
+          <div class="stat-label">Total RSVPs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="attending-guests">0</div>
+          <div class="stat-label">Attending</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="total-songs">0</div>
+          <div class="stat-label">Song Requests</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="total-advice">0</div>
+          <div class="stat-label">Advice Cards</div>
+        </div>
+      </div>
+      
+      <div class="admin-nav">
+        <button class="nav-btn active" data-target="rsvp-section">RSVPs</button>
+        <button class="nav-btn" data-target="songs-section">Song Requests</button>
+        <button class="nav-btn" data-target="advice-section">Marriage Advice</button>
+        <button class="nav-btn" data-target="quiz-section">Quiz Results</button>
+      </div>
+      
+      <div id="rsvp-section" class="admin-section active">
+        <h3>RSVPs</h3>
+        <input type="text" id="rsvp-search" class="search-bar" placeholder="Search by name or email...">
+        <div id="rsvp-list">
+          <p class="loading">Loading RSVPs...</p>
+        </div>
+      </div>
+      
+      <div id="songs-section" class="admin-section">
+        <h3>Song Requests</h3>
+        <input type="text" id="song-search" class="search-bar" placeholder="Search by title, artist or name...">
+        <div id="song-list">
+          <p class="loading">Loading song requests...</p>
+        </div>
+      </div>
+      
+      <div id="advice-section" class="admin-section">
+        <h3>Marriage Advice</h3>
+        <input type="text" id="advice-search" class="search-bar" placeholder="Search by name or content...">
+        <div id="advice-list">
+          <p class="loading">Loading advice...</p>
+        </div>
+      </div>
+      
+      <div id="quiz-section" class="admin-section">
+        <h3>Quiz Results</h3>
+        <input type="text" id="quiz-search" class="search-bar" placeholder="Search by name...">
+        <div id="quiz-list">
+          <p class="loading">Loading quiz results...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Login handling
+      const loginForm = document.getElementById('login-form');
+      const loginContainer = document.getElementById('login-container');
+      const adminDashboard = document.getElementById('admin-dashboard');
+      const logoutBtn = document.getElementById('logout-btn');
+      
+      // Check if already logged in
+      const isLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
+      if (isLoggedIn) {
+        showDashboard();
+      }
+      
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const password = document.getElementById('password').value;
+        
+        // Simple client-side password check (not secure, but simple for demo)
+        // In production, use a proper authentication system
+        fetch(`/api/admin/login?password=${encodeURIComponent(password)}`)
+          .then(response => {
+            if (response.ok) {
+              sessionStorage.setItem('adminLoggedIn', 'true');
+              showDashboard();
+            } else {
+              alert('Invalid password');
+            }
+          })
+          .catch(error => {
+            console.error('Login error:', error);
+            alert('Login failed. Please try again.');
+          });
+      });
+      
+      logoutBtn.addEventListener('click', function() {
+        sessionStorage.removeItem('adminLoggedIn');
+        adminDashboard.style.display = 'none';
+        loginContainer.style.display = 'block';
+      });
+      
+      function showDashboard() {
+        loginContainer.style.display = 'none';
+        adminDashboard.style.display = 'block';
+        loadAllData();
+      }
+      
+      // Navigation
+      const navButtons = document.querySelectorAll('.nav-btn');
+      const sections = document.querySelectorAll('.admin-section');
+      
+      navButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-target');
+          
+          // Update active button
+          navButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Show target section
+          sections.forEach(section => {
+            section.classList.remove('active');
+            if (section.id === targetId) {
+              section.classList.add('active');
+            }
+          });
+        });
+      });
+      
+      // Search functionality
+      document.getElementById('rsvp-search').addEventListener('input', function() {
+        filterRSVPs(this.value);
+      });
+      
+      document.getElementById('song-search').addEventListener('input', function() {
+        filterSongs(this.value);
+      });
+      
+      document.getElementById('advice-search').addEventListener('input', function() {
+        filterAdvice(this.value);
+      });
+      
+      document.getElementById('quiz-search').addEventListener('input', function() {
+        filterQuizResults(this.value);
+      });
+      
+      // Data loading and display
+      let rsvpData = [];
+      let songData = [];
+      let adviceData = [];
+      let quizData = [];
+      
+      function loadAllData() {
+        fetchRSVPs();
+        fetchSongs();
+        fetchAdvice();
+        fetchQuizResults();
+      }
+      
+      function fetchRSVPs() {
+        fetch('/api/rsvp')
+          .then(response => response.json())
+          .then(data => {
+            rsvpData = data;
+            updateRSVPDisplay(rsvpData);
+            updateStats();
+          })
+          .catch(error => {
+            console.error('Error fetching RSVPs:', error);
+            document.getElementById('rsvp-list').innerHTML = '<p class="error">Error loading RSVPs</p>';
+          });
+      }
+      
+      function fetchSongs() {
+        fetch('/api/song-requests')
+          .then(response => response.json())
+          .then(data => {
+            songData = data;
+            updateSongDisplay(songData);
+            updateStats();
+          })
+          .catch(error => {
+            console.error('Error fetching songs:', error);
+            document.getElementById('song-list').innerHTML = '<p class="error">Error loading song requests</p>';
+          });
+      }
+      
+      function fetchAdvice() {
+        fetch('/api/advice')
+          .then(response => response.json())
+          .then(data => {
+            adviceData = data;
+            updateAdviceDisplay(adviceData);
+            updateStats();
+          })
+          .catch(error => {
+            console.error('Error fetching advice:', error);
+            document.getElementById('advice-list').innerHTML = '<p class="error">Error loading advice</p>';
+          });
+      }
+      
+      function fetchQuizResults() {
+        fetch('/api/quiz-results')
+          .then(response => response.json())
+          .then(data => {
+            quizData = data;
+            updateQuizDisplay(quizData);
+          })
+          .catch(error => {
+            console.error('Error fetching quiz results:', error);
+            document.getElementById('quiz-list').innerHTML = '<p class="error">Error loading quiz results</p>';
+          });
+      }
+      
+      function updateStats() {
+        // Update dashboard stats
+        document.getElementById('total-guests').textContent = rsvpData.length;
+        document.getElementById('attending-guests').textContent = rsvpData.filter(guest => guest.attending).length;
+        document.getElementById('total-songs').textContent = songData.length;
+        document.getElementById('total-advice').textContent = adviceData.length;
+      }
+      
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+      }
+      
+      function updateRSVPDisplay(data) {
+        const container = document.getElementById('rsvp-list');
+        
+        if (data.length === 0) {
+          container.innerHTML = '<p class="empty-message">No RSVPs submitted yet</p>';
+          return;
+        }
+        
+        let html = `
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Attending</th>
+                <th>Plus One</th>
+                <th>Dietary Restrictions</th>
+                <th>Submitted</th>
+              </tr>
+            </thead>
+            <tbody>
+        `;
+        
+        data.forEach(guest => {
+          html += `
+            <tr>
+              <td>${guest.name}</td>
+              <td>${guest.email}</td>
+              <td>${guest.attending ? 'Yes' : 'No'}</td>
+              <td>${guest.plusOne ? `Yes - ${guest.plusOneName}` : 'No'}</td>
+              <td>${guest.dietaryRestrictions || 'None'}</td>
+              <td>${formatDate(guest.timestamp)}</td>
+            </tr>
+          `;
+        });
+        
+        html += `
+            </tbody>
+          </table>
+        `;
+        
+        container.innerHTML = html;
+      }
+      
+      function updateSongDisplay(data) {
+        const container = document.getElementById('song-list');
+        
+        if (data.length === 0) {
+          container.innerHTML = '<p class="empty-message">No song requests submitted yet</p>';
+          return;
+        }
+        
+        let html = `
+          <table>
+            <thead>
+              <tr>
+                <th>Song Title</th>
+                <th>Artist</th>
+                <th>Requested By</th>
+                <th>YouTube Link</th>
+                <th>Submitted</th>
+              </tr>
+            </thead>
+            <tbody>
+        `;
+        
+        data.forEach(song => {
+          html += `
+            <tr>
+              <td>${song.songTitle}</td>
+              <td>${song.artist}</td>
+              <td>${song.requestedBy}</td>
+              <td>${song.youtubeLink ? `<a href="${song.youtubeLink}" target="_blank">Watch</a>` : 'None'}</td>
+              <td>${formatDate(song.timestamp)}</td>
+            </tr>
+          `;
+        });
+        
+        html += `
+            </tbody>
+          </table>
+        `;
+        
+        container.innerHTML = html;
+      }
+      
+      function updateAdviceDisplay(data) {
+        const container = document.getElementById('advice-list');
+        
+        if (data.length === 0) {
+          container.innerHTML = '<p class="empty-message">No advice submitted yet</p>';
+          return;
+        }
+        
+        let html = '';
+        
+        data.forEach(advice => {
+          html += `
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h4>${advice.isAnonymous ? 'Anonymous' : advice.guestName}</h4>
+                <span>${advice.yearsMarried > 0 ? `${advice.yearsMarried} years married` : ''}</span>
+              </div>
+              <div class="admin-card-body">
+                <p>"${advice.advice}"</p>
+              </div>
+              <div class="admin-card-footer">
+                <p>Submitted: ${formatDate(advice.timestamp)}</p>
+              </div>
+            </div>
+          `;
+        });
+        
+        container.innerHTML = html;
+      }
+      
+      function updateQuizDisplay(data) {
+        const container = document.getElementById('quiz-list');
+        
+        if (data.length === 0) {
+          container.innerHTML = '<p class="empty-message">No quiz results submitted yet</p>';
+          return;
+        }
+        
+        let html = `
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Percentage</th>
+                <th>Submitted</th>
+              </tr>
+            </thead>
+            <tbody>
+        `;
+        
+        data.forEach(result => {
+          const percentage = Math.round((result.score / result.total) * 100);
+          
+          html += `
+            <tr>
+              <td>${result.name}</td>
+              <td>${result.score} / ${result.total}</td>
+              <td>${percentage}%</td>
+              <td>${formatDate(result.timestamp)}</td>
+            </tr>
+          `;
+        });
+        
+        html += `
+            </tbody>
+          </table>
+        `;
+        
+        container.innerHTML = html;
+      }
+      
+      function filterRSVPs(query) {
+        query = query.toLowerCase();
+        const filtered = rsvpData.filter(guest => 
+          guest.name.toLowerCase().includes(query) ||
+          guest.email.toLowerCase().includes(query) ||
+          (guest.dietaryRestrictions && guest.dietaryRestrictions.toLowerCase().includes(query)) ||
+          (guest.plusOneName && guest.plusOneName.toLowerCase().includes(query))
+        );
+        updateRSVPDisplay(filtered);
+      }
+      
+      function filterSongs(query) {
+        query = query.toLowerCase();
+        const filtered = songData.filter(song => 
+          song.songTitle.toLowerCase().includes(query) ||
+          song.artist.toLowerCase().includes(query) ||
+          song.requestedBy.toLowerCase().includes(query)
+        );
+        updateSongDisplay(filtered);
+      }
+      
+      function filterAdvice(query) {
+        query = query.toLowerCase();
+        const filtered = adviceData.filter(advice => 
+          (advice.guestName && advice.guestName.toLowerCase().includes(query)) ||
+          advice.advice.toLowerCase().includes(query)
+        );
+        updateAdviceDisplay(filtered);
+      }
+      
+      function filterQuizResults(query) {
+        query = query.toLowerCase();
+        const filtered = quizData.filter(result => 
+          result.name.toLowerCase().includes(query)
+        );
+        updateQuizDisplay(filtered);
+      }
+    });
+  </script>
+</body>
+</html>
