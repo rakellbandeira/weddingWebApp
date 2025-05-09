@@ -238,7 +238,9 @@ function initRsvpForm() {
       // Save results to MongoDB (optional)
       const guestName = localStorage.getItem('guestName') || 'Anonymous';
       
-      fetch('/api/quiz-results', {
+
+   
+        fetch(`${API_BASE_URL}/api/quiz-results`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -255,6 +257,7 @@ function initRsvpForm() {
   // Song Request System
   function initSongRequests() {
     const songForm = document.getElementById('songRequestForm');
+    const API_BASE_URL = window.location.origin;
     
     if (!songForm) return;
     
@@ -287,7 +290,8 @@ function initRsvpForm() {
       document.getElementById('songSubmitBtn').textContent = 'Enviando...';
       document.getElementById('songSubmitBtn').disabled = true;
       
-      fetch('/api/song-requests', {
+      
+    fetch(`${API_BASE_URL}/api/song-requests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -343,8 +347,9 @@ function initRsvpForm() {
       
       // Show loading state
       playlistContainer.innerHTML = '<p class="loading">Carregando playlist...</p>';
+    
       
-      fetch('/api/song-requests')
+      fetch(`${API_BASE_URL}/api/song-requests`)
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -445,6 +450,7 @@ function initRsvpForm() {
   // Marriage Advice Cards
   function initAdviceCards() {
     const adviceForm = document.getElementById('adviceForm');
+    const API_BASE_URL = window.location.origin;
     
     if (!adviceForm) return;
     
@@ -469,7 +475,8 @@ function initRsvpForm() {
       document.getElementById('adviceSubmitBtn').textContent = 'Enviando...';
       document.getElementById('adviceSubmitBtn').disabled = true;
       
-      fetch('/api/advice', {
+    
+        fetch(`${API_BASE_URL}/api/advice`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -526,7 +533,9 @@ function initRsvpForm() {
       // Show loading state
       adviceContainer.innerHTML = '<p class="loading">Carregando conselho...</p>';
       
-      fetch('/api/advice')
+
+      
+        fetch(`${API_BASE_URL}/api/advice`)      
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
