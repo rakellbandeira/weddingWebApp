@@ -257,7 +257,7 @@ function initRsvpForm() {
   // Song Request System
   function initSongRequests() {
     const songForm = document.getElementById('songRequestForm');
-    const API_BASE_URL = window.location.origin;
+    const API_BASE_URL = "https://your-vercel-app-name.vercel.app";
     
     if (!songForm) return;
     
@@ -450,7 +450,7 @@ function initRsvpForm() {
   // Marriage Advice Cards
   function initAdviceCards() {
     const adviceForm = document.getElementById('adviceForm');
-    const API_BASE_URL = window.location.origin;
+    const API_BASE_URL = "https://your-vercel-app-name.vercel.app";
     
     if (!adviceForm) return;
     
