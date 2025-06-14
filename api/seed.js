@@ -1,4 +1,3 @@
-// api/seed.js
 const mongoose = require('mongoose');
 const { connectToDatabase } = require('./_db');
 
@@ -18,71 +17,77 @@ const adviceSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now }
 });
 
-// Models
 let SongRequest, Advice;
-try {
-  SongRequest = mongoose.model('SongRequest');
-  Advice = mongoose.model('Advice');
-} catch {
-  SongRequest = mongoose.model('SongRequest', songRequestSchema);
-  Advice = mongoose.model('Advice', adviceSchema);
-}
 
 module.exports = async (req, res) => {
-  // Only allow POST requests
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
   }
-  
-  // Simple password protection
-  const { password } = req.body;
-  if (password !== process.env.ADMIN_PASSWORD) {
-    return res.status(401).json({ error: 'Unauthorized' });
+
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Method not allowed. Use GET to seed database.' });
   }
-  
+
   try {
     await connectToDatabase();
-    
+
+    // Initialize models
+    try {
+      SongRequest = mongoose.model('SongRequest');
+      Advice = mongoose.model('Advice');
+    } catch {
+      SongRequest = mongoose.model('SongRequest', songRequestSchema);
+      Advice = mongoose.model('Advice', adviceSchema);
+    }
+
     // Check if data already exists
     const songCount = await SongRequest.countDocuments();
     const adviceCount = await Advice.countDocuments();
-    
-    if (songCount > 0 || adviceCount > 0) {
-      return res.status(200).json({ 
-        message: 'Database already has data', 
-        songCount, 
-        adviceCount 
+
+    if (songCount > 0 && adviceCount > 0) {
+      return res.status(200).json({
+        message: 'Database already has data',
+        songCount,
+        adviceCount
       });
     }
-    
-    // Add sample data
-    const sampleSong = new SongRequest({
-      songTitle: "All of Me - John Legend",
-      youtubeLink: "https://www.youtube.com/watch?v=450p7goxZqg",
-      requestedBy: "Anônimo"
-    });
-    
-    const sampleAdvice = new Advice({
-      guestName: "Anônimo",
-      yearsMarried: 25,
-      advice: "O segredo de um casamento feliz é nunca dormir brigados. Conversem sempre, riam juntos e lembrem-se de que vocês são uma equipe enfrentando a vida lado a lado.",
-      isAnonymous: true
-    });
-    
-    await sampleSong.save();
-    await sampleAdvice.save();
-    
-    res.status(200).json({ 
-      success: true, 
+
+    // Add sample data if none exists
+    if (songCount === 0) {
+      const sampleSong = new SongRequest({
+        songTitle: "All of Me - John Legend",
+        youtubeLink: "https://www.youtube.com/watch?v=450p7goxZqg",
+        requestedBy: "Anônimo"
+      });
+      await sampleSong.save();
+    }
+
+    if (adviceCount === 0) {
+      const sampleAdvice = new Advice({
+        guestName: "Anônimo",
+        yearsMarried: 25,
+        advice: "O segredo de um casamento feliz é nunca dormir brigados. Conversem sempre, riam juntos e lembrem-se de que vocês são uma equipe enfrentando a vida lado a lado.",
+        isAnonymous: true
+      });
+      await sampleAdvice.save();
+    }
+
+    res.status(200).json({
+      success: true,
       message: 'Database seeded successfully!',
-      added: {
-        song: sampleSong.songTitle,
-        advice: 'One advice card'
-      }
+      songsAdded: songCount === 0 ? 1 : 0,
+      adviceAdded: adviceCount === 0 ? 1 : 0
     });
-    
+
   } catch (error) {
     console.error('Seeding error:', error);
-    res.status(500).json({ error: 'Failed to seed database' });
+    res.status(500).json({ error: 'Failed to seed database', details: error.message });
   }
 };

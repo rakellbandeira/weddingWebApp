@@ -4,9 +4,9 @@
   "description": "Interactive wedding invitation website",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "seed": "node seed-database.js"
+    "start": "echo 'This app runs on Vercel serverless functions'",
+    "dev": "echo 'Development: Test directly on Vercel deployment'",
+    "build": "echo 'No build step needed for static files'"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -16,9 +16,6 @@
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.1.0",
     "mongoose": "^7.5.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
   },
   "engines": {
     "node": ">=14.0.0"
