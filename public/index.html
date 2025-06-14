@@ -23,7 +23,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#details">Detalhes</a></li>
                 <!-- <li><a href="#rsvp">RSVP</a></li> -->
-                <li><a href="#activities">Àrea dos Amigos</a></li>
+                <li><a href="#activities">Área dos Amigos</a></li>
                 <!-- <li><a href="#registry">Registry</a></li> -->
             </ul>
             <button class="mobile-menu-toggle">
@@ -40,7 +40,7 @@
             <div class="wedding-announcement">
                 <h2>Nós vamos casar!</h2>
                 <h1>Mosiah & Rakell</h1>
-                <p class="wedding-date">12/07/25</p>
+                <p class="wedding-date">11/07/25</p>
 
                 <!-- <div class="rsvp-button">
           <a href="#rsvp" class="btn primary-btn">RSVP</a>
@@ -55,7 +55,7 @@
         <!-- Details Section -->
         <section id="details" class="details-section">
             <div class="section-container">
-                <h2>Junte-se a nós para celebrar</h2>
+                <h2>Junte-se a nós para celebrar!</h2>
                 <!-- <p class="wedding-date">12/07/2025</p> -->
 
                 <div class="details-grid">
@@ -63,29 +63,29 @@
                         <h3 class="card-title">~ A data ~</h3>
                         <br>
                         <h4>Casamento civil:</h4>
-                        <h3 class="detail-time">Sexta-feira, 12 de Julho</h3>
+                        <h3 class="detail-time">Sexta-feira, 11 de Julho</h3>
                         <h3 class="detail-time">19:00</h3>
+                        <h4>P.S.: A noiva pretende ser pontual &#128521;</h4>
                         <br>
-                        <h4>Selamento:</h4>
-                        <h3 class="detail-time">Sábado, 13 de Julho</h3>
-                        <h3 class="detail-time">12:00</h3>
                     </div>
 
                     <div class="detail-card">
                         <h3 class="card-title">~ O local ~</h3>
-                        <p>A cerimônia do casamento civil será no salão da capela de Tapajós.</p>
                         <br>
-                        <p class="detail-location">Av. Joaquim Nabuco, 1581, Centro - Manaus</p>
+                        <h4>A cerimônia será no salão da capela de Tapajós.</h4>
+                        <br>
+                        <h3 class="detail-location">Av. Joaquim Nabuco, 1581, Centro - Manaus</h3>
                         <a href="https://maps.app.goo.gl/VGC9S1mi3KsSN7Ga6" class="btn secondary-btn"
                             target="_blank">Ver no Mapa</a>
                     </div>
 
-                    <div class="detail-card">
+                    <div class="detail-card" id="foodCard">
                         <h3 class="card-title">~ Outros detalhes ~</h3>
-                        <p>Traje social</p>
+                        <br>
+                        <h4>O Cocktail será servido logo na Recepção, logo após a cerimônia.</h4>
 
-                        <img src="/images/midi.jpg" loading="lazy" alt="Exemplo de tamanho de vestido" height="250">
-                        <!-- <a href="#" class="btn secondary-btn">Dúvidas?</a> -->
+                       <img src="/images/food6.png" loading="lazy" alt="Exemplo de comida">
+                       <!-- <a href="#" class="btn secondary-btn">Dúvidas?</a> -->
                     </div>
                 </div>
             </div>
@@ -184,9 +184,7 @@
                     <h3>Sugestão de Música</h3>
                     <p>Fique à vontade para sugerir uma música pra nossa playlist do dia.</p>
                     <form id="songRequestForm" class="song-request-form">
-                        <input type="text" name="name" placeholder="Seu Nome:" required>
-                        <input type="text" name="songTitle" placeholder="Título da Música" required>
-                        <input type="text" name="artist" placeholder="Artista" required>
+                        <input type="text" name="songTitle" placeholder="Título da Música e Artista" required>
                         <input type="url" name="youtubeLink" placeholder="Link do YouTube (opcional)">
                         <button type="submit" id="songSubmitBtn" class="btn">Enviar sugestão</button>
                     </form>
@@ -204,11 +202,11 @@
                 <div class="activity-card">
                     <h3>O segredo do casamento feliz</h3>
                     <p>Quer dividir algum conselho com a gente?</p>
-                    <p>(Todo conselho é anônimo!)</p>
+                    <p>(É anônimo!)</p>
                     <form id="adviceForm" class="advice-form">
-                        <input type="number" name="yearsMarried" placeholder="Anos de casado (se já for casado)"
+                        <input type="number" name="yearsMarried" placeholder="Quantos anos de casado tem? (se casado)"
                             min="0">
-                        <textarea name="advice" placeholder="Seu conselho para um casamento feliz..."
+                        <textarea name="advice" placeholder="Deixe aqui seu conselho..."
                             required></textarea>
 
                         <button type="submit" id="adviceSubmitBtn" class="btn">Enviar</button>

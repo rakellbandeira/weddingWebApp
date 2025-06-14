@@ -134,13 +134,19 @@
   
   
   .wedding-announcement h2 {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     margin-top: 0.5rem;
   }
   
   .wedding-announcement h1 {
     font-size: 3rem;
    
+  }
+
+  .wedding-announcement p{
+    font-size: 3rem;
+    margin-bottom: 0rem;
+    line-height: 3rem;
   }
   
   .wedding-date {
@@ -159,12 +165,21 @@
   }
   
 #home, #celebrate{
+  background-color: white;
     background-image: url(/images/couple-main.png);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     overflow: visible;
 }
+
+/* #foodCard {
+  background-color: white;
+  background-image: url("/images/food.png");
+  background-repeat: none;
+  background-position: center ;
+  opacity: .4;
+} */
 
 
 
@@ -197,6 +212,7 @@
     background-color: var(--white);
     color: var(--secondary-color);
     border: 1px solid var(--secondary-color);
+    margin: 15px 0px;
   }
   
   .secondary-btn:hover {
@@ -242,13 +258,19 @@
   
   .detail-card h3 {
     font-size: 2rem;
-    
+  }
+
+  .detail-card h4 {
+    font-size: 1.4rem;
+    font-weight: light;
+    font-style: italic;
+    color: var(--primary-color-light);
   }
   
-
+/* 
   .detail-card img{
-    opacity: 0.2;
-  }
+    opacity: 1;
+  } */
 
 
   .detail-time, .detail-location {
@@ -673,7 +695,7 @@
     }
     
     .wedding-announcement h1 {
-      font-size: 3.5rem;
+      font-size: 4rem;
     }
     
     .wedding-date {
