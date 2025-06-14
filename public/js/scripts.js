@@ -32,10 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-    // Initialize RSVP form
-    initRsvpForm();
-    
-    // Initialize Quiz
+        // Initialize Quiz
     initQuiz();
     
     // Initialize Song Request System
@@ -44,88 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Marriage Advice Cards
     initAdviceCards();
   });
-  
-  // RSVP Form
-function initRsvpForm() {
-    const rsvpForm = document.getElementById('rsvpForm');
-    
-    if (!rsvpForm) return;
-    
-    rsvpForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const formData = new FormData(rsvpForm);
-      const guestData = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        attending: formData.get('attending') === 'yes',
-        dietaryRestrictions: formData.get('dietary') || '',
-        plusOne: formData.get('plusOne') === 'yes',
-        plusOneName: formData.get('plusOneName') || ''
-      };
-      
-      // Show loading indicator
-      document.getElementById('rsvpSubmitBtn').textContent = 'Submitting...';
-      document.getElementById('rsvpSubmitBtn').disabled = true;
-      
-      // Send to backend
-      fetch('https://wedding-web-app-one.vercel.app/api/advice', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        mode: 'cors',
-        body: JSON.stringify(guestData)
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        // Hide form, show confirmation
-        rsvpForm.style.display = 'none';
-        document.getElementById('confirmation').style.display = 'block';
-        
-        // Store guest name in localStorage for other forms
-        localStorage.setItem('guestName', guestData.name);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('rsvpSubmitBtn').textContent = 'Submit RSVP';
-        document.getElementById('rsvpSubmitBtn').disabled = false;
-        alert('There was an error submitting your RSVP. Please try again.');
-      });
-    });
-    
-    // Show/hide conditional fields based on attendance
-    const attendingRadios = document.querySelectorAll('input[name="attending"]');
-    attendingRadios.forEach(radio => {
-      radio.addEventListener('change', function() {
-        const detailsSection = document.getElementById('attendance-details');
-        if (this.value === 'yes' && this.checked) {
-          detailsSection.style.display = 'block';
-        } else {
-          detailsSection.style.display = 'none';
-        }
-      });
-    });
-    
-    // Show/hide plus one name field
-    const plusOneRadios = document.querySelectorAll('input[name="plusOne"]');
-    plusOneRadios.forEach(radio => {
-      radio.addEventListener('change', function() {
-        const plusOneDetails = document.getElementById('plus-one-details');
-        if (this.value === 'yes' && this.checked) {
-          plusOneDetails.style.display = 'block';
-        } else {
-          plusOneDetails.style.display = 'none';
-        }
-      });
-    });
-  }
-  
+
   // Quiz
   function initQuiz() {
     const quizContainer = document.getElementById('quiz-container');
@@ -259,25 +175,18 @@ function initRsvpForm() {
   // Song Request System
   function initSongRequests() {
     const songForm = document.getElementById('songRequestForm');
-    const API_BASE_URL = "https://your-vercel-app-name.vercel.app";
+   
     
     if (!songForm) return;
-    
-    // Pre-fill name if available
-    const nameInput = songForm.querySelector('input[name="name"]');
-    if (nameInput && localStorage.getItem('guestName')) {
-      nameInput.value = localStorage.getItem('guestName');
-    }
-    
+        
     songForm.addEventListener('submit', function(e) {
       e.preventDefault();
       
       const formData = new FormData(songForm);
       const songData = {
         songTitle: formData.get('songTitle'),
-        artist: formData.get('artist'),
         youtubeLink: formData.get('youtubeLink'),
-        requestedBy: formData.get('name')
+        requestedBy: 'Anônimo'
       };
       
       // Validate YouTube link if provided
@@ -293,12 +202,12 @@ function initRsvpForm() {
       document.getElementById('songSubmitBtn').disabled = true;
       
       
-    fetch('https://wedding-web-app-one.vercel.app/api/song-requests', {
+    fetch('/api/song-requests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        mode: 'cors',
+        
         body: JSON.stringify(songData)
       })
       .then(response => {
@@ -315,12 +224,7 @@ function initRsvpForm() {
         // Show confirmation and reset form
         document.getElementById('songRequestConfirmation').style.display = 'block';
         songForm.reset();
-        
-        // Re-populate name if available
-        if (localStorage.getItem('guestName')) {
-          songForm.querySelector('input[name="name"]').value = localStorage.getItem('guestName');
-        }
-        
+                
         // Hide confirmation after 3 seconds
         setTimeout(() => {
           document.getElementById('songRequestConfirmation').style.display = 'none';
@@ -337,11 +241,9 @@ function initRsvpForm() {
       });
     });
     
-    // Load playlist if container exists
-    const playlistContainer = document.getElementById('youtube-playlist');
-    if (playlistContainer) {
-      loadPlaylist();
-    }
+    
+    loadPlaylist();
+    
     
     // Function to load and display the YouTube playlist
     function loadPlaylist() {
@@ -352,7 +254,7 @@ function initRsvpForm() {
       playlistContainer.innerHTML = '<p class="loading">Carregando playlist...</p>';
     
       
-      fetch('https://wedding-web-app-one.vercel.app/api/song-requests')
+      fetch('/api/song-requests')
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -383,7 +285,7 @@ function initRsvpForm() {
                   allowfullscreen>
                 </iframe>
                 <p class="now-playing">
-                  Now playing: <strong>${featuredSong.songTitle}</strong> by ${featuredSong.artist}
+                  Now playing: <strong>${featuredSong.songTitle}</strong>
                   <small>Requested by: ${featuredSong.requestedBy}</small>
                 </p>
               </div>
@@ -400,7 +302,6 @@ function initRsvpForm() {
               <li class="song-item ${index === 0 ? 'active' : ''}" data-video-id="${videoId || ''}">
                 <div class="song-info">
                   <p class="song-title">${song.songTitle}</p>
-                  <p class="song-artist">by ${song.artist}</p>
                   <p class="song-requester">Requested by: ${song.requestedBy}</p>
                 </div>
                 ${videoId ? 
@@ -426,11 +327,10 @@ function initRsvpForm() {
                 // Update now playing text
                 const songItem = this.closest('.song-item');
                 const title = songItem.querySelector('.song-title').textContent;
-                const artist = songItem.querySelector('.song-artist').textContent;
                 const requester = songItem.querySelector('.song-requester').textContent;
                 
                 document.querySelector('.now-playing').innerHTML = 
-                  `Tocando agora: <strong>${title}</strong> ${artist}<br>
+                  `Tocando agora: <strong>${title}</strong>
                   <small>${requester}</small>`;
                 
                 // Update active class
@@ -451,17 +351,13 @@ function initRsvpForm() {
   }
   
   // Marriage Advice Cards
-  function initAdviceCards() {
+function initAdviceCards() {
     const adviceForm = document.getElementById('adviceForm');
-    const API_BASE_URL = "https://your-vercel-app-name.vercel.app";
     
     if (!adviceForm) return;
     
-    // Pre-fill name if available
-    const nameInput = adviceForm.querySelector('input[name="name"]');
-    if (nameInput && localStorage.getItem('guestName')) {
-      nameInput.value = localStorage.getItem('guestName');
-    }
+    // Load existing advice when page loads
+    loadAdvice();
     
     adviceForm.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -478,13 +374,11 @@ function initRsvpForm() {
       document.getElementById('adviceSubmitBtn').textContent = 'Enviando...';
       document.getElementById('adviceSubmitBtn').disabled = true;
       
-    
-      fetch('https://wedding-web-app-one.vercel.app/api/advice', {
+      fetch('/api/advice', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        mode: 'cors', // Explicitly set CORS mode
         body: JSON.stringify(adviceData)
       })
       .then(response => {
@@ -502,17 +396,12 @@ function initRsvpForm() {
         document.getElementById('adviceConfirmation').style.display = 'block';
         adviceForm.reset();
         
-        // Re-populate name if available
-        if (localStorage.getItem('guestName')) {
-          adviceForm.querySelector('input[name="name"]').value = localStorage.getItem('guestName');
-        }
-        
         // Hide confirmation after 3 seconds
         setTimeout(() => {
           document.getElementById('adviceConfirmation').style.display = 'none';
         }, 3000);
         
-        // Refresh advice cards
+        // Refresh advice display
         loadAdvice();
       })
       .catch(error => {
@@ -523,23 +412,15 @@ function initRsvpForm() {
       });
     });
     
-    // Load advice if container exists
-    const adviceContainer = document.getElementById('advice-container');
-    if (adviceContainer) {
-      loadAdvice();
-    }
-    
     // Function to load and display advice
     function loadAdvice() {
       const adviceContainer = document.getElementById('advice-container');
       if (!adviceContainer) return;
       
       // Show loading state
-      adviceContainer.innerHTML = '<p class="loading">Carregando conselho...</p>';
+      adviceContainer.innerHTML = '<p class="loading">Carregando conselhos...</p>';
       
-
-      
-        fetch('https://wedding-web-app-one.vercel.app/api/advice')      
+      fetch('/api/advice')
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -548,11 +429,11 @@ function initRsvpForm() {
         })
         .then(data => {
           if (data.length === 0) {
-            adviceContainer.innerHTML = '<p>Nenhum conselho foi dividio. Seja o primeiro!</p>';
+            adviceContainer.innerHTML = '<p>Nenhum conselho foi compartilhado ainda. Seja o primeiro!</p>';
             return;
           }
           
-          let adviceHTML = '<div class="advice-cards">';
+          let adviceHTML = '<h3>Conselhos compartilhados:</h3><div class="advice-cards">';
           
           data.forEach(advice => {
             adviceHTML += `
@@ -574,10 +455,10 @@ function initRsvpForm() {
         .catch(error => {
           console.error('Error loading advice:', error);
           adviceContainer.innerHTML = 
-            '<p class="error">Sorry, we couldn\'t load the advice. Please try again later.</p>';
+            '<p class="error">Não foi possível carregar os conselhos. Tente novamente mais tarde.</p>';
         });
     }
-  }
+}
   
   // Helper function to extract YouTube video ID
   function extractYouTubeId(url) {

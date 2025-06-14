@@ -81,11 +81,6 @@ const songRequestSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  artist: {
-    type: String,
-    required: true,
-    trim: true
-  },
   youtubeLink: {
     type: String,
     trim: true,
@@ -93,7 +88,7 @@ const songRequestSchema = new mongoose.Schema({
   },
   requestedBy: {
     type: String,
-    required: true,
+    default: 'Anônimo',
     trim: true
   },
   timestamp: {
