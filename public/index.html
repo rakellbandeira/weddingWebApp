@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -55,38 +58,38 @@
         <!-- Details Section -->
         <section id="details" class="details-section">
             <div class="section-container">
-                <h2>Junte-se a nós para celebrar!</h2>
+                <h2></h2>
                 <!-- <p class="wedding-date">12/07/2025</p> -->
 
                 <div class="details-grid">
                     <div class="detail-card">
                         <h3 class="card-title">~ A data ~</h3>
-                        <br>
+                        
                         <h4>Casamento civil:</h4>
-                        <h3 class="detail-time">Sexta-feira, 11 de Julho</h3>
-                        <h3 class="detail-time">19:00</h3>
-                        <h4>P.S.: A noiva pretende ser pontual &#128521;</h4>
-                        <br>
+                        <h3 class="detail-time">Sexta-feira, 11 de Julho,</h3>
+                        <h3 class="detail-time">Às 19:00</h3>
+                        <h4>Obs.: A noiva pretende ser pontual.</h4>
+                        
                     </div>
 
                     <div class="detail-card">
                         <h3 class="card-title">~ O local ~</h3>
-                        <br>
-                        <h4>A cerimônia será no salão da capela de Tapajós.</h4>
-                        <br>
+                        
+                        <h4>A cerimônia será na capela de Tapajós.</h4>
+                        
                         <h3 class="detail-location">Av. Joaquim Nabuco, 1581, Centro - Manaus</h3>
                         <a href="https://maps.app.goo.gl/VGC9S1mi3KsSN7Ga6" class="btn secondary-btn"
                             target="_blank">Ver no Mapa</a>
                     </div>
 
-                    <div class="detail-card" id="foodCard">
+                    <!-- <div class="detail-card" id="foodCard">
                         <h3 class="card-title">~ Outros detalhes ~</h3>
                         <br>
-                        <h4>O Cocktail será servido logo na Recepção, logo após a cerimônia.</h4>
+                        <h4>Um lanche será servido logo após a cerimônia.</h4>
 
                        <img src="/images/food6.png" loading="lazy" alt="Exemplo de comida">
-                       <!-- <a href="#" class="btn secondary-btn">Dúvidas?</a> -->
-                    </div>
+                        <a href="#" class="btn secondary-btn">Dúvidas?</a> -->
+                    </div> 
                 </div>
             </div>
         </section>
@@ -166,11 +169,11 @@
         <!-- Activities Section (Fun Stuff) -->
         <section id="activities" class="activities-section">
             <div class="section-container">
-                <h2>Área dos amigos - Pra Descontrair</h2>
+                <h2>Área dos amigos</h2>
 
                 <!-- Quiz -->
                 <div class="activity-card">
-                    <h3>QUIZ</h3>
+                    <p>QUIZ &#128221;</p>
                     <h3>"O quanto conhece sobre os noivos?"</h3>
                     <p>Teste seu conhecimento!</p>
                     <div id="quiz-container" class="quiz-container">
@@ -181,7 +184,7 @@
 
                 <!-- Song Requests -->
                 <div class="activity-card">
-                    <h3>Sugestão de Música</h3>
+                    <h3>Sugestão de Música &#127900;</h3>
                     <p>Fique à vontade para sugerir uma música pra nossa playlist do dia.</p>
                     <form id="songRequestForm" class="song-request-form">
                         <input type="text" name="songTitle" placeholder="Título da Música e Artista" required>
@@ -200,11 +203,10 @@
 
                 <!-- Marriage Advice -->
                 <div class="activity-card">
-                    <h3>O segredo do casamento feliz</h3>
-                    <p>Quer dividir algum conselho com a gente?</p>
-                    <p>(É anônimo!)</p>
+                    <h3>O segredo para um casamento feliz &#129323;</h3>
+                    <p>Quer dividir algum conselho com a gente? (É anônimo!)</p>
                     <form id="adviceForm" class="advice-form">
-                        <input type="number" name="yearsMarried" placeholder="Quantos anos de casado tem? (se casado)"
+                        <input type="number" name="yearsMarried" placeholder="Quantos anos de experiência em casamento você tem?"
                             min="0">
                         <textarea name="advice" placeholder="Deixe aqui seu conselho..."
                             required></textarea>
@@ -239,7 +241,8 @@
         <!-- Celebrate With Us Section -->
         <section id="celebrate" class="celebrate-section">
             <div class="section-container">
-                <h2>Confirme sua presença</h2>
+                <h2>Save the date:</h2>
+                <h1 id="footer-date">11/07/25</h1>
 
                 <!-- <div class="rsvp-button">
           <a href="#rsvp" class="btn primary-btn">RSVP</a>

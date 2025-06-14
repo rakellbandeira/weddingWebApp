@@ -1,4 +1,7 @@
-/* Base styles and reset */
+
+@import url('https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&display=swap');
+
+
 * {
     margin: 0;
     padding: 0;
@@ -8,14 +11,28 @@
   /* Color palette - Easy to modify */
   :root {
     /* Primary colors */
-    --primary-color: #8c7a62; /* Gold/bronze accent color */
+    /* --primary-cc: #faf4eb;
+    --primary-color: #8c7a62; 
     --primary-color-light: #a99c8a;
-    --primary-color-dark: #6e5e4a;
+    --primary-color-light-light: #dfd6ca;
+    --primary-color-dark: #6e5e4a; */
     
     /* Secondary colors */
-    --secondary-color: #333333; /* Text color */
+    /* --secondary-color: #333333; 
+    --secondary-color-light: #666666;
+    --secondary-color-dark: #1a1a1a; */
+
+    --primary-cc: #f7effd ;
+    --primary-color: #8f5378 ; 
+    --primary-color-light: #9b6ca5  ;
+    --primary-color-light-light: #d4c6bd;
+    --primary-color-dark: #a29489; 
+    --silver: #a3a3a3;
+
+    --secondary-color: #333333; 
     --secondary-color-light: #666666;
     --secondary-color-dark: #1a1a1a;
+
     
     /* Neutral colors */
     --white: #ffffff;
@@ -28,6 +45,8 @@
     --error-color: #F44336;
     --warning-color: #FFC107;
     --info-color: #2196F3;
+
+    --cursive: "Gwendolyn", cursive;
   }
   
   body {
@@ -36,6 +55,7 @@
     line-height: 1.6;
     background-color: var(--white);
     font-size: 16px;
+    margin: 0;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -129,23 +149,31 @@
   .hero-section {
     text-align: center;
     padding: 2rem 1rem 3rem;
+    align-items: center;
   }
 
+  .wedding-announcement {
+    display: flex;
+    flex-direction: column;
   
+    justify-content: left;
+  }
   
   .wedding-announcement h2 {
     font-size: 1.8rem;
-    margin-top: 0.5rem;
+    margin: 0.5rem 0;
   }
   
   .wedding-announcement h1 {
     font-size: 3rem;
+    margin: 0;
+    line-height: 4rem;
    
   }
 
   .wedding-announcement p{
     font-size: 3rem;
-    margin-bottom: 0rem;
+    margin: 0rem;
     line-height: 3rem;
   }
   
@@ -153,6 +181,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: 2rem;
     margin-bottom: 2rem;
+    color: transparent;
   }
   
   .couple-photo {
@@ -164,9 +193,18 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-#home, #celebrate{
+#home{
   background-color: white;
-    background-image: url(/images/couple-main.png);
+    background-image: url(/images/couple-main2.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: visible;
+}
+
+#celebrate{
+  background-color: white;
+    background-image: url(/images/couple-main3.png);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -197,6 +235,10 @@
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s;
+    border-radius: 0.5rem;
+    background-color: var(--primary-color-light);
+    color: white;
+
   }
   
   .primary-btn {
@@ -238,8 +280,12 @@
   }
   
   .details-section h2 {
-    font-size: 2rem;
+    font-family: var(--cursive);
+    font-size: 6rem;
+    line-height: 4rem;
     margin-bottom: 1rem;
+    z-index: 999;
+    color: var(--primary-color-light-light);
   }
   
   .details-grid {
@@ -258,13 +304,15 @@
   
   .detail-card h3 {
     font-size: 2rem;
+    margin: 0;
   }
 
   .detail-card h4 {
     font-size: 1.4rem;
     font-weight: light;
-    font-style: italic;
-    color: var(--primary-color-light);
+    
+    color: var(--silver);
+    margin: 0;
   }
   
 /* 
@@ -275,6 +323,7 @@
 
   .detail-time, .detail-location {
     font-weight: 500;
+    line-height: 3rem;
     
   }
   
@@ -366,9 +415,14 @@
   }
   
   .activities-section h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
     text-align: center;
+
+    font-family: var(--cursive);
+    font-size: 6rem;
+    line-height: 4rem;
+    margin-bottom: 1rem;
+    z-index: 999;
+    color: var(--primary-color-light-light);
   }
   
   .activity-card {
@@ -380,14 +434,15 @@
   }
   
   .activity-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin: 1rem 0rem;
     text-align: center;
+    line-height: 2.5rem;
   }
   
   .activity-card p {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
   
   /* Quiz Styles */
@@ -395,20 +450,27 @@
     max-width: 600px;
     margin: 0 auto;
   }
+
+  .quiz-question {
+    background-color: var(--primary-cc);
+    padding: 1rem;
+    margin: 2rem 0;
+    border-radius: 1rem;
+  }
   
   .quiz-question h3 {
     font-size: 1.2rem;
     margin-bottom: 1rem;
-    padding: 1rem;
+    padding: 0.1rem 0.7rem;
     border-radius: 25px;
     border: solid 1px var(--primary-color);
     width: fit-content;
 
-    margin: 25px auto;
+    margin: 15px auto;
   }
 
   .quiz-question p{
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
   
   .quiz-options {
@@ -602,8 +664,13 @@
   }
   
   .celebrate-section h2 {
-    font-size: 2rem;
+
+    font-family: var(--cursive);
+    font-size: 6rem;
+    line-height: 4rem;
     margin-bottom: 1rem;
+    z-index: 999;
+    color: var(--primary-color-light-light);
   }
   
   .celebrate-section p {
@@ -646,6 +713,12 @@
   
   .footer-nav a:hover {
     color: var(--primary-color-light);
+  }
+
+  #footer-date{
+    font-size: 3rem;
+    line-height: 2rem;
+    color: var(--primary-color-dark);
   }
   
   /* Utility Classes */
@@ -703,7 +776,9 @@
     }
     
     .details-grid {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 7rem;
+      gap: 3rem;
     }
     
     .activity-card {
@@ -723,20 +798,22 @@
   @media (min-width: 1024px) {
     .hero-section {
       display: flex;
-      align-items: center;
+      
       justify-content: space-between;
       gap: 2rem;
     }
     
     .wedding-announcement {
       text-align: left;
+      justify-content: left;
       flex: 1;
       margin-left: 12rem;
+      padding-top: 2rem;
       
     }
 
     .couple-names{
-        margin-left: 12rem;
+        
     }
     
     .couple-photo {
