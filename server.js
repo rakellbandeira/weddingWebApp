@@ -38,6 +38,61 @@ mongoose.connect(MONGODB_URI, {
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
+
+
+// Add this after your MongoDB connection in server.js
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(async () => {
+    console.log('Connected to MongoDB');
+    
+    // Auto-seed database on first run
+    await seedDatabaseOnce();
+  })
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// Auto-seeding function
+async function seedDatabaseOnce() {
+  try {
+    // Check if we need to seed by looking for existing data
+    const songCount = await SongRequest.countDocuments();
+    const adviceCount = await Advice.countDocuments();
+    
+    if (songCount === 0 && adviceCount === 0) {
+      console.log('🌱 Database appears empty, seeding with sample data...');
+      
+      // Sample song request
+      const sampleSong = new SongRequest({
+        songTitle: "All of Me - John Legend",
+        youtubeLink: "https://www.youtube.com/watch?v=450p7goxZqg",
+        requestedBy: "Anônimo"
+      });
+      
+      // Sample advice
+      const sampleAdvice = new Advice({
+        guestName: "Anônimo",
+        yearsMarried: 25,
+        advice: "O segredo de um casamento feliz é nunca dormir brigados. Conversem sempre, riam juntos e lembrem-se de que vocês são uma equipe enfrentando a vida lado a lado.",
+        isAnonymous: true
+      });
+      
+      await sampleSong.save();
+      await sampleAdvice.save();
+      
+      console.log('✅ Sample data added to database!');
+    } else {
+      console.log('ℹ️ Database already has data, skipping seed...');
+    }
+  } catch (error) {
+    console.error('❌ Error seeding database:', error);
+  }
+}
+
+
+
+
 // Define schemas and models
 const guestSchema = new mongoose.Schema({
   name: {
