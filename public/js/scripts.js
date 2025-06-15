@@ -309,7 +309,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       
       playlistHTML += '</ul>';
-      playlistContainer.innerHTML = playlistHTML;
 
       // Add pagination controls at the top
       if (totalPages > 1) {
@@ -325,6 +324,9 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         `;
       }
+      playlistContainer.innerHTML = playlistHTML;
+
+      
       
       // Add click handlers to play buttons
       document.querySelectorAll('.play-button').forEach(button => {
@@ -465,6 +467,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let adviceHTML = '<p>Lista de conselhos já compartilhados:</p>';
       
       
+
       adviceHTML += '<div class="advice-cards">';
       
       adviceToDisplay.forEach(advice => {
@@ -481,9 +484,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
       });
       
-      adviceHTML += '</div>';
-      adviceContainer.innerHTML = adviceHTML;
-
       // Add pagination controls at the top
       if (totalPages > 1) {
         adviceHTML += `
@@ -498,6 +498,9 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         `;
       }
+
+      adviceHTML += '</div>';
+      adviceContainer.innerHTML = adviceHTML;
     }
 
     // Global function for pagination
