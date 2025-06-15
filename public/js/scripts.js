@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
           }
           
-          let playlistHTML = '<h3>Músicas sugeridas</h3>';
+          let playlistHTML = '<p>Lista de músicas já sugeridas:</p>';
           
           // Display featured video (most recent request)
           const featuredSong = data[0];
@@ -302,13 +302,13 @@ document.addEventListener('DOMContentLoaded', function() {
               <li class="song-item ${index === 0 ? 'active' : ''}" data-video-id="${videoId || ''}">
                 <div class="song-info">
                   <p class="song-title">${song.songTitle}</p>
-                  <p class="song-requester">Requested by: ${song.requestedBy}</p>
-                </div>
-                ${videoId ? 
+                  ${videoId ? 
                   `<button class="play-button" data-video-id="${videoId}">
                     <span class="play-icon">▶</span>
                   </button>` 
                   : ''}
+                </div>
+                
               </li>
             `;
           });
@@ -433,7 +433,7 @@ function initAdviceCards() {
             return;
           }
           
-          let adviceHTML = '<h3>Conselhos compartilhados:</h3><div class="advice-cards">';
+          let adviceHTML = '<p>Lista de conselhos já compartilhados:</p><div class="advice-cards">';
           
           data.forEach(advice => {
             adviceHTML += `
