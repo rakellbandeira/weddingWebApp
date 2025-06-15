@@ -742,9 +742,12 @@
   }
 
   #advice-container p{
-    margin-top: 6rem;
+    margin: 5rem auto 0rem;
   }
 
+  #youtube-playlist p{
+    margin: 5rem auto 0rem;
+  }
 
   /* Celebrate With Us Section */
   .celebrate-section {
