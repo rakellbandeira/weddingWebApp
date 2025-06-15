@@ -287,6 +287,20 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         `;
       }
+
+      if (totalPages > 1) {
+        playlistHTML += `
+          <div class="pagination-controls">
+            <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changeSongPage(${page - 1})">
+              ${page === 1 ? '' : '<'}
+            </button>
+            <span class="pagination-info">${page} de ${totalPages}</span>
+            <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changeSongPage(${page + 1})">
+              ${page === totalPages ? '' : '>'}
+            </button>
+          </div>
+        `;
+      }
       
       // List songs for current page
       playlistHTML += '<ul class="song-list">';
@@ -310,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       playlistHTML += '</ul>';
 
-      // Add pagination controls at the top
+      
       if (totalPages > 1) {
         playlistHTML += `
           <div class="pagination-controls">
@@ -466,6 +480,19 @@ document.addEventListener('DOMContentLoaded', function() {
       
       let adviceHTML = '<p>Lista de conselhos já compartilhados:</p>';
       
+      if (totalPages > 1) {
+        adviceHTML += `
+          <div class="pagination-controls">
+            <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changeAdvicePage(${page - 1})">
+              ${page === 1 ? '' : '<'}
+            </button>
+            <span class="pagination-info">${page} de ${totalPages}</span>
+            <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changeAdvicePage(${page + 1})">
+              ${page === totalPages ? '' : '>'}
+            </button>
+          </div>
+        `;
+      }
       
 
       adviceHTML += '<div class="advice-cards">';
@@ -484,7 +511,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
       });
       
-      // Add pagination controls at the top
+      
       if (totalPages > 1) {
         adviceHTML += `
           <div class="pagination-controls">
