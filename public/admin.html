@@ -155,7 +155,7 @@
   <div id="admin-dashboard" style="display: none;">
     <header class="site-header">
       <div class="couple-names">
-        <h1>Benjamin & Isabella</h1>
+        <h1>Rakell & Mosiah</h1>
       </div>
       <div>
         <h2>Admin Dashboard</h2>
@@ -168,15 +168,15 @@
         <button id="logout-btn" class="btn secondary-btn">Logout</button>
       </div>
       
-      <div class="stats-grid">
+      <!-- <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-number" id="total-guests">0</div>
           <div class="stat-label">Total RSVPs</div>
-        </div>
-        <div class="stat-card">
+        </div> -->
+        <!-- <div class="stat-card">
           <div class="stat-number" id="attending-guests">0</div>
           <div class="stat-label">Attending</div>
-        </div>
+        </div> -->
         <div class="stat-card">
           <div class="stat-number" id="total-songs">0</div>
           <div class="stat-label">Song Requests</div>
@@ -188,19 +188,19 @@
       </div>
       
       <div class="admin-nav">
-        <button class="nav-btn active" data-target="rsvp-section">RSVPs</button>
-        <button class="nav-btn" data-target="songs-section">Song Requests</button>
+<!--         <button class="nav-btn active" data-target="rsvp-section">RSVPs</button>
+ -->        <button class="nav-btn" data-target="songs-section">Song Requests</button>
         <button class="nav-btn" data-target="advice-section">Marriage Advice</button>
-        <button class="nav-btn" data-target="quiz-section">Quiz Results</button>
-      </div>
+<!--         <button class="nav-btn" data-target="quiz-section">Quiz Results</button>
+ -->      </div>
       
-      <div id="rsvp-section" class="admin-section active">
+      <!-- <div id="rsvp-section" class="admin-section active">
         <h3>RSVPs</h3>
         <input type="text" id="rsvp-search" class="search-bar" placeholder="Search by name or email...">
         <div id="rsvp-list">
           <p class="loading">Loading RSVPs...</p>
         </div>
-      </div>
+      </div> -->
       
       <div id="songs-section" class="admin-section">
         <h3>Song Requests</h3>
@@ -218,13 +218,13 @@
         </div>
       </div>
       
-      <div id="quiz-section" class="admin-section">
+      <!-- <div id="quiz-section" class="admin-section">
         <h3>Quiz Results</h3>
         <input type="text" id="quiz-search" class="search-bar" placeholder="Search by name...">
         <div id="quiz-list">
           <p class="loading">Loading quiz results...</p>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -298,9 +298,9 @@
       });
       
       // Search functionality
-      document.getElementById('rsvp-search').addEventListener('input', function() {
+      /* document.getElementById('rsvp-search').addEventListener('input', function() {
         filterRSVPs(this.value);
-      });
+      }); */
       
       document.getElementById('song-search').addEventListener('input', function() {
         filterSongs(this.value);
@@ -310,24 +310,24 @@
         filterAdvice(this.value);
       });
       
-      document.getElementById('quiz-search').addEventListener('input', function() {
+      /* document.getElementById('quiz-search').addEventListener('input', function() {
         filterQuizResults(this.value);
-      });
+      }); */
       
       // Data loading and display
-      let rsvpData = [];
+      
       let songData = [];
       let adviceData = [];
-      let quizData = [];
+      
       
       function loadAllData() {
-        fetchRSVPs();
+        
         fetchSongs();
         fetchAdvice();
-        fetchQuizResults();
+        
       }
       
-      function fetchRSVPs() {
+      /* function fetchRSVPs() {
         fetch('/api/rsvp')
           .then(response => response.json())
           .then(data => {
@@ -339,7 +339,7 @@
             console.error('Error fetching RSVPs:', error);
             document.getElementById('rsvp-list').innerHTML = '<p class="error">Error loading RSVPs</p>';
           });
-      }
+      } */
       
       function fetchSongs() {
         fetch('/api/song-requests')
@@ -369,7 +369,7 @@
           });
       }
       
-      function fetchQuizResults() {
+      /* function fetchQuizResults() {
         fetch('/api/quiz-results')
           .then(response => response.json())
           .then(data => {
@@ -380,22 +380,24 @@
             console.error('Error fetching quiz results:', error);
             document.getElementById('quiz-list').innerHTML = '<p class="error">Error loading quiz results</p>';
           });
-      }
+      } */
       
       function updateStats() {
         // Update dashboard stats
-        document.getElementById('total-guests').textContent = rsvpData.length;
-        document.getElementById('attending-guests').textContent = rsvpData.filter(guest => guest.attending).length;
-        document.getElementById('total-songs').textContent = songData.length;
+/*         document.getElementById('total-guests').textContent = rsvpData.length;
+ */        
+/*         document.getElementById('attending-guests').textContent = rsvpData.filter(guest => guest.attending).length;
+ */        
+         document.getElementById('total-songs').textContent = songData.length;
         document.getElementById('total-advice').textContent = adviceData.length;
       }
       
-      function formatDate(dateString) {
+      /* function formatDate(dateString) {
         const date = new Date(dateString);
         return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-      }
+      } */
       
-      function updateRSVPDisplay(data) {
+      /* function updateRSVPDisplay(data) {
         const container = document.getElementById('rsvp-list');
         
         if (data.length === 0) {
@@ -437,7 +439,7 @@
         `;
         
         container.innerHTML = html;
-      }
+      } */
       
       function updateSongDisplay(data) {
         const container = document.getElementById('song-list');
@@ -452,8 +454,8 @@
             <thead>
               <tr>
                 <th>Song Title</th>
-                <th>Artist</th>
-                <th>Requested By</th>
+                
+                
                 <th>YouTube Link</th>
                 <th>Submitted</th>
               </tr>
@@ -465,8 +467,8 @@
           html += `
             <tr>
               <td>${song.songTitle}</td>
-              <td>${song.artist}</td>
-              <td>${song.requestedBy}</td>
+              
+              
               <td>${song.youtubeLink ? `<a href="${song.youtubeLink}" target="_blank">Watch</a>` : 'None'}</td>
               <td>${formatDate(song.timestamp)}</td>
             </tr>
@@ -495,7 +497,7 @@
           html += `
             <div class="admin-card">
               <div class="admin-card-header">
-                <h4>${advice.isAnonymous ? 'Anonymous' : advice.guestName}</h4>
+                <h4>'Anonymous'</h4>
                 <span>${advice.yearsMarried > 0 ? `${advice.yearsMarried} years married` : ''}</span>
               </div>
               <div class="admin-card-body">
@@ -511,7 +513,7 @@
         container.innerHTML = html;
       }
       
-      function updateQuizDisplay(data) {
+      /* function updateQuizDisplay(data) {
         const container = document.getElementById('quiz-list');
         
         if (data.length === 0) {
@@ -551,9 +553,9 @@
         `;
         
         container.innerHTML = html;
-      }
+      } */
       
-      function filterRSVPs(query) {
+      /* function filterRSVPs(query) {
         query = query.toLowerCase();
         const filtered = rsvpData.filter(guest => 
           guest.name.toLowerCase().includes(query) ||
@@ -562,7 +564,7 @@
           (guest.plusOneName && guest.plusOneName.toLowerCase().includes(query))
         );
         updateRSVPDisplay(filtered);
-      }
+      } */
       
       function filterSongs(query) {
         query = query.toLowerCase();
@@ -583,13 +585,13 @@
         updateAdviceDisplay(filtered);
       }
       
-      function filterQuizResults(query) {
+      /* function filterQuizResults(query) {
         query = query.toLowerCase();
         const filtered = quizData.filter(result => 
           result.name.toLowerCase().includes(query)
         );
         updateQuizDisplay(filtered);
-      }
+      } */
     });
   </script>
 </body>

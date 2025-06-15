@@ -1,34 +1,38 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-let cachedDb = null;
+let cached = global.mongoose;
 
-async function connectToDatabase() {
-  if (cachedDb) {
-    return cachedDb;
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+export async function connectToDatabase() {
+  if (cached.conn) {
+    return cached.conn;
   }
 
-  const MONGODB_URI = process.env.MONGODB_URI;
-  
-  if (!MONGODB_URI) {
-    throw new Error('Please define the MONGODB_URI environment variable inside .env');
+  if (!cached.promise) {
+    const MONGODB_URI = process.env.MONGODB_URI;
+    
+    if (!MONGODB_URI) {
+      throw new Error('Please define the MONGODB_URI environment variable');
+    }
+
+    cached.promise = mongoose.connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }).then(mongoose => {
+      console.log('Connected to MongoDB');
+      return mongoose;
+    });
   }
 
   try {
-    const opts = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      bufferCommands: false,
-      bufferMaxEntries: 0,
-    };
-
-    const db = await mongoose.connect(MONGODB_URI, opts);
-    cachedDb = db;
-    console.log('Connected to MongoDB');
-    return db;
-  } catch (error) {
-    console.error('MongoDB connection error:', error);
-    throw error;
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    throw e;
   }
-}
 
-module.exports = { connectToDatabase };
+  return cached.conn;
+}

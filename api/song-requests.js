@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { connectToDatabase } = require('./_db');
+import mongoose from 'mongoose';
+import { connectToDatabase } from './_db.js';
 
 // Define schema
 const songRequestSchema = new mongoose.Schema({
@@ -24,20 +24,21 @@ const songRequestSchema = new mongoose.Schema({
   }
 });
 
-// Initialize model
-let SongRequest;
-try {
-  SongRequest = mongoose.model('SongRequest');
-} catch {
-  SongRequest = mongoose.model('SongRequest', songRequestSchema);
+// Get or create model
+function getSongRequestModel() {
+  try {
+    return mongoose.model('SongRequest');
+  } catch {
+    return mongoose.model('SongRequest', songRequestSchema);
+  }
 }
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   // Handle OPTIONS request (preflight)
   if (req.method === 'OPTIONS') {
@@ -48,6 +49,7 @@ module.exports = async (req, res) => {
   try {
     // Connect to database
     await connectToDatabase();
+    const SongRequest = getSongRequestModel();
 
     if (req.method === 'POST') {
       const songRequest = new SongRequest(req.body);
@@ -67,4 +69,4 @@ module.exports = async (req, res) => {
       error: error.message 
     });
   }
-};
+}

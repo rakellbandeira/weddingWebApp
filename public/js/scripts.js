@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       
       // Save results to MongoDB (optional)
-      const guestName = localStorage.getItem('guestName') || 'Anonymous';
+      /* const guestName = localStorage.getItem('guestName') || 'Anonymous';
       
 
    
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
           score: score,
           total: questions.length
         })
-      }).catch(error => console.error('Erro ao salvar seu resultado:', error));
+      }).catch(error => console.error('Erro ao salvar seu resultado:', error)); */
     }
   }
   
