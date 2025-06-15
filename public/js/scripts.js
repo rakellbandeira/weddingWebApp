@@ -325,19 +325,6 @@ document.addEventListener('DOMContentLoaded', function() {
       playlistHTML += '</ul>';
 
       
-      if (totalPages > 1) {
-        playlistHTML += `
-          <div class="pagination-controls">
-            <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changeSongPage(${page - 1})">
-              ${page === 1 ? '' : '<'}
-            </button>
-            <span class="pagination-info">${page} de ${totalPages}</span>
-            <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changeSongPage(${page + 1})">
-              ${page === totalPages ? '' : '>'}
-            </button>
-          </div>
-        `;
-      }
       playlistContainer.innerHTML = playlistHTML;
 
       
@@ -512,19 +499,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       
       
-      if (totalPages > 1) {
-        adviceHTML += `
-          <div class="pagination-controls">
-            <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changeAdvicePage(${page - 1})">
-              ${page === 1 ? '' : '<'}
-            </button>
-            <span class="pagination-info">${page} de ${totalPages}</span>
-            <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changeAdvicePage(${page + 1})">
-              ${page === totalPages ? '' : '>'}
-            </button>
-          </div>
-        `;
-      }
 
       adviceHTML += '</div>';
       adviceContainer.innerHTML = adviceHTML;
