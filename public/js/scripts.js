@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
           
           if (featuredVideoId) {
             playlistHTML += `
-            <p class="now-playing">
+            <p class="now-playing" id="now-playing">
                   Tocando agora: <strong>${featuredSong.songTitle}</strong>
                   
             </p>  
@@ -301,13 +301,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             playlistHTML += `
               <li class="song-item ${index === 0 ? 'active' : ''}" data-video-id="${videoId || ''}">
-                <div class="song-info">
+                <div class="song-info" >
                   ${videoId ? 
                   `<button class="play-button" data-video-id="${videoId}">
                     <span class="play-icon">▶</span>
                   </button>` 
                   : ''}
-                  <p class="song-title">${song.songTitle}</p>
+                  <p class="song-title" id="song-title">${song.songTitle}</p>
                 </div>
                 
               </li>

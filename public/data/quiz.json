@@ -1,12 +1,12 @@
 [
     {
-      "question": "Onde nos vimos pela primeira vez?",
+      "question": "Onde eles dois se viram pela primeira vez?",
       "options": ["Na igreja", "Num encontro duplo", "Numa pizzaria",  "No Tinder"],
       "correctAnswer": 2,
       "funFact": "&#129316; Nos encontramos no aniversário de um amigo em comum numa pizzaria!"
     },
     {
-      "question": "Nosso primeiro encontro foi o quê?",
+      "question": "O primeiro encontro deles foi o quê?",
       "options": ["Passeio de carro", "Encontro duplo", "Cinema", "Pizza"],
       "correctAnswer": 0,
       "funFact": "Primeiro date foi um passeio de &#128663; carro pela Ponta Negra e em vários lugares, conversando o caminho inteiro!"
@@ -43,7 +43,7 @@
     },
     
     {
-        "question": "Quem deu o primeiro beijo?",
+        "question": "E quem deu o primeiro beijo?",
         "options": ["Mosiah", "Rakell"],
         "correctAnswer": 0,
         "funFact": "Há divergências sobre esse fato. Mas é melhor deixar quieto &#128517;"

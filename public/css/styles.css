@@ -535,6 +535,10 @@
     border-radius: 2px;
   }
   
+#song-title {
+  text-align: left;
+}
+
   .youtube-playlist-container {
     margin-top: 2rem;
   }
@@ -548,6 +552,10 @@
   .now-playing {
     margin-top: 0.5rem;
     font-size: 0.9rem;
+  }
+
+  #now-playing{
+    margin-top: 2rem;
   }
   
   .song-list {
@@ -683,6 +691,7 @@
 
   textarea {
     font-family: var(--cursive);
+    font-size: 2rem;
   }
 
   #advice-container p{
