@@ -28,14 +28,13 @@ const adviceSchema = new mongoose.Schema({
   }
 });
 
-// Initialize model
-let Advice;
-try {
-  // Try to retrieve existing model
-  Advice = mongoose.model('Advice');
-} catch {
-  // Create new model if doesn't exist
-  Advice = mongoose.model('Advice', adviceSchema);
+// Get or create model
+function getAdviceModel() {
+  try {
+    return mongoose.model('Advice');
+  } catch {
+    return mongoose.model('Advice', adviceSchema);
+  }
 }
 
 module.exports = async (req, res) => {
@@ -54,6 +53,7 @@ module.exports = async (req, res) => {
   try {
     // Connect to database
     await connectToDatabase();
+    const Advice = getAdviceModel();
 
     if (req.method === 'POST') {
       const advice = new Advice(req.body);
