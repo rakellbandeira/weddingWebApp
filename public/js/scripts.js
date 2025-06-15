@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <div class="featured-video">
                 <iframe 
                   width="320"
-                  height="270" 
+                  height="240" 
                   src="https://www.youtube.com/embed/${featuredVideoId}" 
                   frameborder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
