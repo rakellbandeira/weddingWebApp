@@ -7,15 +7,15 @@
     },
     {
       "question": "O primeiro encontro deles foi o quê?",
-      "options": ["Passeio de carro", "Encontro duplo", "Cinema", "Pizza"],
+      "options": ["Habib's", "Encontro duplo", "Cinema", "Pizza"],
       "correctAnswer": 0,
-      "funFact": "Primeiro date foi um passeio de &#128663; carro pela Ponta Negra e em vários lugares, conversando o caminho inteiro!"
+      "funFact": "Primeiro date foi no Habib's &#128663;"
     },
     {
       "question": "Comida favorita do Mosiah?",
-      "options": ["Feijoada da mãe", "Buchada do sogro", "Galinhada da vovó", "Hambúrguer"],
+      "options": ["Feijoada da mãe", "Buchada do sogro", "Galinha guisada", "Hambúrguer"],
       "correctAnswer": 2,
-      "funFact": "O noivo diz que pela &#127831; galinhada da vovó ele viaja kilômetros só pra comer!"
+      "funFact": "O noivo diz que hambúrguer é a comida dos deuses!"
     },
     {
       "question": "Comida favorita da Rakell?",
