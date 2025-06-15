@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const endIndex = startIndex + songsPerPage;
       const songsToDisplay = allSongs.slice(startIndex, endIndex);
       
-      let playlistHTML = '<p>Lista de músicas já sugeridas:</p>';
+      let playlistHTML = '<p id="youtube-p" >Lista de músicas já sugeridas:</p>';
        
       // Display featured video (first song of current page)
       const featuredSong = songsToDisplay[0];
@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const endIndex = startIndex + advicePerPage;
       const adviceToDisplay = allAdvice.slice(startIndex, endIndex);
       
-      let adviceHTML = '<p>Lista de conselhos já compartilhados:</p>';
+      let adviceHTML = '<p id="advice-list" >Lista de conselhos já compartilhados:</p>';
       
       if (totalPages > 1) {
         adviceHTML += `
