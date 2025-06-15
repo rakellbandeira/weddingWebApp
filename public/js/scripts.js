@@ -265,22 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const songsToDisplay = allSongs.slice(startIndex, endIndex);
       
       let playlistHTML = '<p>Lista de músicas já sugeridas:</p>';
-      
-      // Add pagination controls at the top
-      if (totalPages > 1) {
-        playlistHTML += `
-          <div class="pagination-controls">
-            <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changeSongPage(${page - 1})">
-              ${page === 1 ? '' : '<'}
-            </button>
-            <span class="pagination-info">${page} de ${totalPages}</span>
-            <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changeSongPage(${page + 1})">
-              ${page === totalPages ? '' : '>'}
-            </button>
-          </div>
-        `;
-      }
-      
+       
       // Display featured video (first song of current page)
       const featuredSong = songsToDisplay[0];
       const featuredVideoId = extractYouTubeId(featuredSong.youtubeLink);
@@ -325,6 +310,21 @@ document.addEventListener('DOMContentLoaded', function() {
       
       playlistHTML += '</ul>';
       playlistContainer.innerHTML = playlistHTML;
+
+      // Add pagination controls at the top
+      if (totalPages > 1) {
+        playlistHTML += `
+          <div class="pagination-controls">
+            <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changeSongPage(${page - 1})">
+              ${page === 1 ? '' : '<'}
+            </button>
+            <span class="pagination-info">${page} de ${totalPages}</span>
+            <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changeSongPage(${page + 1})">
+              ${page === totalPages ? '' : '>'}
+            </button>
+          </div>
+        `;
+      }
       
       // Add click handlers to play buttons
       document.querySelectorAll('.play-button').forEach(button => {
@@ -464,21 +464,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       let adviceHTML = '<p>Lista de conselhos já compartilhados:</p>';
       
-      // Add pagination controls at the top
-      if (totalPages > 1) {
-        adviceHTML += `
-          <div class="pagination-controls">
-            <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changeAdvicePage(${page - 1})">
-              ${page === 1 ? '' : '<'}
-            </button>
-            <span class="pagination-info">${page} de ${totalPages}</span>
-            <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changeAdvicePage(${page + 1})">
-              ${page === totalPages ? '' : '>'}
-            </button>
-          </div>
-        `;
-      }
-
+      
       adviceHTML += '<div class="advice-cards">';
       
       adviceToDisplay.forEach(advice => {
@@ -497,6 +483,21 @@ document.addEventListener('DOMContentLoaded', function() {
       
       adviceHTML += '</div>';
       adviceContainer.innerHTML = adviceHTML;
+
+      // Add pagination controls at the top
+      if (totalPages > 1) {
+        adviceHTML += `
+          <div class="pagination-controls">
+            <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changeAdvicePage(${page - 1})">
+              ${page === 1 ? '' : '<'}
+            </button>
+            <span class="pagination-info">${page} de ${totalPages}</span>
+            <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changeAdvicePage(${page + 1})">
+              ${page === totalPages ? '' : '>'}
+            </button>
+          </div>
+        `;
+      }
     }
 
     // Global function for pagination
