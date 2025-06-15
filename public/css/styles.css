@@ -664,7 +664,8 @@
   }
 
   .song-info {
-    display: flex;
+    display: grid;
+    grid-template-columns: 30px auto;
     flex-direction: row;
     gap: 2rem;
     margin: 0;
