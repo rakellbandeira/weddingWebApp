@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-        // Initialize Quiz
+    // Initialize Quiz
     initQuiz();
     
     // Initialize Song Request System
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initAdviceCards();
   });
 
-  // Quiz
+  // Quiz (unchanged)
   function initQuiz() {
     const quizContainer = document.getElementById('quiz-container');
     
@@ -151,31 +151,15 @@ document.addEventListener('DOMContentLoaded', function() {
         score = 0;
         showQuestion();
       });
-      
-      // Save results to MongoDB (optional)
-      /* const guestName = localStorage.getItem('guestName') || 'Anonymous';
-      
-
-   
-        fetch('/api/quiz-results',{
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        mode: 'cors',
-        body: JSON.stringify({
-          name: guestName,
-          score: score,
-          total: questions.length
-        })
-      }).catch(error => console.error('Erro ao salvar seu resultado:', error)); */
     }
   }
   
-  // Song Request System
+  // Song Request System with Pagination
   function initSongRequests() {
     const songForm = document.getElementById('songRequestForm');
-   
+    let allSongs = [];
+    let currentSongPage = 1;
+    const songsPerPage = 5;
     
     if (!songForm) return;
         
@@ -201,13 +185,11 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('songSubmitBtn').textContent = 'Enviando...';
       document.getElementById('songSubmitBtn').disabled = true;
       
-      
-    fetch('/api/song-requests', {
+      fetch('/api/song-requests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        
         body: JSON.stringify(songData)
       })
       .then(response => {
@@ -230,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById('songRequestConfirmation').style.display = 'none';
         }, 3000);
         
-        // Refresh playlist if it exists on the page
+        // Refresh playlist
         loadPlaylist();
       })
       .catch(error => {
@@ -241,11 +223,9 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-    
     loadPlaylist();
     
-    
-    // Function to load and display the YouTube playlist
+    // Function to load and display the YouTube playlist with pagination
     function loadPlaylist() {
       const playlistContainer = document.getElementById('youtube-playlist');
       if (!playlistContainer) return;
@@ -253,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
       // Show loading state
       playlistContainer.innerHTML = '<p class="loading">Carregando playlist...</p>';
     
-      
       fetch('/api/song-requests')
         .then(response => {
           if (!response.ok) {
@@ -262,86 +241,8 @@ document.addEventListener('DOMContentLoaded', function() {
           return response.json();
         })
         .then(data => {
-          if (data.length === 0) {
-            playlistContainer.innerHTML = '<p>Nenhuma música foi sugerida ainda. Seja o primeiro!</p>';
-            return;
-          }
-          
-          let playlistHTML = '<p>Lista de músicas já sugeridas:</p>';
-          
-          // Display featured video (most recent request)
-          const featuredSong = data[0];
-          const featuredVideoId = extractYouTubeId(featuredSong.youtubeLink);
-          
-          if (featuredVideoId) {
-            playlistHTML += `
-            <p class="now-playing" id="now-playing">
-                  Tocando agora: <strong>${featuredSong.songTitle}</strong>
-                  
-            </p>  
-            <div class="featured-video">
-                <iframe 
-                  width="320"
-                  height="240" 
-                  src="https://www.youtube.com/embed/${featuredVideoId}" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                  allowfullscreen>
-                </iframe>
-                
-              </div>
-            `;
-          }
-          
-          // List all requested songs
-          playlistHTML += '<ul class="song-list">';
-          
-          data.forEach((song, index) => {
-            const videoId = extractYouTubeId(song.youtubeLink);
-            
-            playlistHTML += `
-              <li class="song-item ${index === 0 ? 'active' : ''}" data-video-id="${videoId || ''}">
-                <div class="song-info" >
-                  ${videoId ? 
-                  `<button class="play-button" data-video-id="${videoId}">
-                    <span class="play-icon">▶</span>
-                  </button>` 
-                  : ''}
-                  <p class="song-title" id="song-title">${song.songTitle}</p>
-                </div>
-                
-              </li>
-            `;
-          });
-          
-          playlistHTML += '</ul>';
-          playlistContainer.innerHTML = playlistHTML;
-          
-          // Add click handlers to play buttons
-          document.querySelectorAll('.play-button').forEach(button => {
-            button.addEventListener('click', function() {
-              const videoId = this.getAttribute('data-video-id');
-              if (videoId && document.querySelector('.featured-video iframe')) {
-                document.querySelector('.featured-video iframe').src = 
-                  `https://www.youtube.com/embed/${videoId}`;
-                
-                // Update now playing text
-                const songItem = this.closest('.song-item');
-                const title = songItem.querySelector('.song-title').textContent;
-                const requester = songItem.querySelector('.song-requester').textContent;
-                
-                document.querySelector('.now-playing').innerHTML = 
-                  `Tocando agora: <strong>${title}</strong>
-                  <small>${requester}</small>`;
-                
-                // Update active class
-                document.querySelectorAll('.song-item').forEach(item => {
-                  item.classList.remove('active');
-                });
-                songItem.classList.add('active');
-              }
-            });
-          });
+          allSongs = data;
+          displaySongsPage(currentSongPage);
         })
         .catch(error => {
           console.error('Erro ao carregar playlist:', error);
@@ -349,11 +250,120 @@ document.addEventListener('DOMContentLoaded', function() {
             '<p class="error">Perdão, tente novamente mais tarde.</p>';
         });
     }
+
+    function displaySongsPage(page) {
+      const playlistContainer = document.getElementById('youtube-playlist');
+      
+      if (allSongs.length === 0) {
+        playlistContainer.innerHTML = '<p>Nenhuma música foi sugerida ainda. Seja o primeiro!</p>';
+        return;
+      }
+
+      const totalPages = Math.ceil(allSongs.length / songsPerPage);
+      const startIndex = (page - 1) * songsPerPage;
+      const endIndex = startIndex + songsPerPage;
+      const songsToDisplay = allSongs.slice(startIndex, endIndex);
+      
+      let playlistHTML = '<p>Lista de músicas já sugeridas:</p>';
+      
+      // Add pagination controls at the top
+      if (totalPages > 1) {
+        playlistHTML += `
+          <div class="pagination-controls">
+            <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changeSongPage(${page - 1})">
+              ${page === 1 ? '' : '<'}
+            </button>
+            <span class="pagination-info">${page} de ${totalPages}</span>
+            <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changeSongPage(${page + 1})">
+              ${page === totalPages ? '' : '>'}
+            </button>
+          </div>
+        `;
+      }
+      
+      // Display featured video (first song of current page)
+      const featuredSong = songsToDisplay[0];
+      const featuredVideoId = extractYouTubeId(featuredSong.youtubeLink);
+      
+      if (featuredVideoId) {
+        playlistHTML += `
+        <p class="now-playing" id="now-playing">
+              Tocando agora: <strong>${featuredSong.songTitle}</strong>
+        </p>  
+        <div class="featured-video">
+            <iframe 
+              width="320"
+              height="240" 
+              src="https://www.youtube.com/embed/${featuredVideoId}" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+        `;
+      }
+      
+      // List songs for current page
+      playlistHTML += '<ul class="song-list">';
+      
+      songsToDisplay.forEach((song, index) => {
+        const videoId = extractYouTubeId(song.youtubeLink);
+        
+        playlistHTML += `
+          <li class="song-item ${index === 0 ? 'active' : ''}" data-video-id="${videoId || ''}">
+            <div class="song-info">
+              ${videoId ? 
+              `<button class="play-button" data-video-id="${videoId}">
+                <span class="play-icon">▶</span>
+              </button>` 
+              : ''}
+              <p class="song-title" id="song-title">${song.songTitle}</p>
+            </div>
+          </li>
+        `;
+      });
+      
+      playlistHTML += '</ul>';
+      playlistContainer.innerHTML = playlistHTML;
+      
+      // Add click handlers to play buttons
+      document.querySelectorAll('.play-button').forEach(button => {
+        button.addEventListener('click', function() {
+          const videoId = this.getAttribute('data-video-id');
+          if (videoId && document.querySelector('.featured-video iframe')) {
+            document.querySelector('.featured-video iframe').src = 
+              `https://www.youtube.com/embed/${videoId}`;
+            
+            // Update now playing text
+            const songItem = this.closest('.song-item');
+            const title = songItem.querySelector('.song-title').textContent;
+            
+            document.querySelector('.now-playing').innerHTML = 
+              `Tocando agora: <strong>${title}</strong>`;
+            
+            // Update active class
+            document.querySelectorAll('.song-item').forEach(item => {
+              item.classList.remove('active');
+            });
+            songItem.classList.add('active');
+          }
+        });
+      });
+    }
+
+    // Global function for pagination
+    window.changeSongPage = function(page) {
+      currentSongPage = page;
+      displaySongsPage(page);
+    };
   }
   
-  // Marriage Advice Cards
-function initAdviceCards() {
+  // Marriage Advice Cards with Pagination
+  function initAdviceCards() {
     const adviceForm = document.getElementById('adviceForm');
+    let allAdvice = [];
+    let currentAdvicePage = 1;
+    const advicePerPage = 3;
     
     if (!adviceForm) return;
     
@@ -413,7 +423,7 @@ function initAdviceCards() {
       });
     });
     
-    // Function to load and display advice
+    // Function to load and display advice with pagination
     function loadAdvice() {
       const adviceContainer = document.getElementById('advice-container');
       if (!adviceContainer) return;
@@ -429,29 +439,8 @@ function initAdviceCards() {
           return response.json();
         })
         .then(data => {
-          if (data.length === 0) {
-            adviceContainer.innerHTML = '<p>Nenhum conselho foi compartilhado ainda. Seja o primeiro!</p>';
-            return;
-          }
-          
-          let adviceHTML = '<p>Lista de conselhos já compartilhados:</p><div class="advice-cards">';
-          
-          data.forEach(advice => {
-            adviceHTML += `
-              <div class="advice-card">
-                <div class="advice-content">
-                  <p class="advice-text">"${advice.advice}"</p>
-                  <p class="advice-author">
-                    — ${advice.isAnonymous ? 'Anônimo' : advice.guestName}
-                    ${advice.yearsMarried > 0 ? `(${advice.yearsMarried} anos de casado)` : ''}
-                  </p>
-                </div>
-              </div>
-            `;
-          });
-          
-          adviceHTML += '</div>';
-          adviceContainer.innerHTML = adviceHTML;
+          allAdvice = data;
+          displayAdvicePage(currentAdvicePage);
         })
         .catch(error => {
           console.error('Error loading advice:', error);
@@ -459,7 +448,63 @@ function initAdviceCards() {
             '<p class="error">Não foi possível carregar os conselhos. Tente novamente mais tarde.</p>';
         });
     }
-}
+
+    function displayAdvicePage(page) {
+      const adviceContainer = document.getElementById('advice-container');
+      
+      if (allAdvice.length === 0) {
+        adviceContainer.innerHTML = '<p>Nenhum conselho foi compartilhado ainda. Seja o primeiro!</p>';
+        return;
+      }
+
+      const totalPages = Math.ceil(allAdvice.length / advicePerPage);
+      const startIndex = (page - 1) * advicePerPage;
+      const endIndex = startIndex + advicePerPage;
+      const adviceToDisplay = allAdvice.slice(startIndex, endIndex);
+      
+      let adviceHTML = '<p>Lista de conselhos já compartilhados:</p>';
+      
+      // Add pagination controls at the top
+      if (totalPages > 1) {
+        adviceHTML += `
+          <div class="pagination-controls">
+            <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changeAdvicePage(${page - 1})">
+              ${page === 1 ? '' : '<'}
+            </button>
+            <span class="pagination-info">${page} de ${totalPages}</span>
+            <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changeAdvicePage(${page + 1})">
+              ${page === totalPages ? '' : '>'}
+            </button>
+          </div>
+        `;
+      }
+
+      adviceHTML += '<div class="advice-cards">';
+      
+      adviceToDisplay.forEach(advice => {
+        adviceHTML += `
+          <div class="advice-card">
+            <div class="advice-content">
+              <p class="advice-text">"${advice.advice}"</p>
+              <p class="advice-author">
+                — ${advice.isAnonymous ? 'Anônimo' : advice.guestName}
+                ${advice.yearsMarried > 0 ? `(${advice.yearsMarried} anos de casado)` : ''}
+              </p>
+            </div>
+          </div>
+        `;
+      });
+      
+      adviceHTML += '</div>';
+      adviceContainer.innerHTML = adviceHTML;
+    }
+
+    // Global function for pagination
+    window.changeAdvicePage = function(page) {
+      currentAdvicePage = page;
+      displayAdvicePage(page);
+    };
+  }
   
   // Helper function to extract YouTube video ID
   function extractYouTubeId(url) {
