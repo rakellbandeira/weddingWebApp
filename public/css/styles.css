@@ -568,6 +568,7 @@
   .song-title {
     font-weight: 500;
     margin-bottom: 0.2rem;
+    text-align: left;
   }
   
   .song-artist, .song-requester {
