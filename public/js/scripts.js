@@ -275,7 +275,11 @@ document.addEventListener('DOMContentLoaded', function() {
           
           if (featuredVideoId) {
             playlistHTML += `
-              <div class="featured-video">
+            <p class="now-playing">
+                  Tocando agora: <strong>${featuredSong.songTitle}</strong>
+                  
+            </p>  
+            <div class="featured-video">
                 <iframe 
                   width="320"
                   height="240" 
@@ -284,10 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                   allowfullscreen>
                 </iframe>
-                <p class="now-playing">
-                  Tocando agora: <strong>${featuredSong.songTitle}</strong>
-                  
-                </p>
+                
               </div>
             `;
           }
@@ -301,12 +302,12 @@ document.addEventListener('DOMContentLoaded', function() {
             playlistHTML += `
               <li class="song-item ${index === 0 ? 'active' : ''}" data-video-id="${videoId || ''}">
                 <div class="song-info">
-                  <p class="song-title">${song.songTitle}</p>
                   ${videoId ? 
                   `<button class="play-button" data-video-id="${videoId}">
                     <span class="play-icon">▶</span>
                   </button>` 
                   : ''}
+                  <p class="song-title">${song.songTitle}</p>
                 </div>
                 
               </li>
