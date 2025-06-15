@@ -25,9 +25,7 @@ async function connectToDatabase() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       bufferCommands: false,
-      bufferMaxEntries: 0,
-      useFindAndModify: false,
-      useCreateIndex: true,
+      bufferMaxEntries: 0
     }).then(mongoose => {
       console.log('Connected to MongoDB');
       return mongoose;
