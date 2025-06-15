@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const adviceForm = document.getElementById('adviceForm');
     let allAdvice = [];
     let currentAdvicePage = 1;
-    const advicePerPage = 3;
+    const advicePerPage = 2;
     
     if (!adviceForm) return;
     
