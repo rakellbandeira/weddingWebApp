@@ -24,7 +24,8 @@
 
     --primary-cc: #f7effd ;
     --primary-color: #8f5378 ; 
-    --primary-color-light: #9b6ca5  ;
+    --primary-color-light: #9b6ca5 ;
+    --primary-color-light2: #754480 ;
     --primary-color-light-light: #d4c6bd;
     --primary-color-dark: #a29489; 
     --silver: #a3a3a3;
@@ -724,7 +725,7 @@
   
   /* Footer */
   .site-footer {
-    background-color: var(--primary-color-light);
+    background-color: var(--primary-color-light2);
     color: var(--white);
     text-align: center;
     padding: 2rem 1rem;
