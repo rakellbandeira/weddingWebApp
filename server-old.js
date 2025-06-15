@@ -30,7 +30,7 @@ app.options('*', cors()); // Enable preflight for all routes
 
 
 // Connect to MongoDB
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/wedding';
+const MONGODB_URI = process.env.MONGODB_URI;
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -48,53 +48,13 @@ mongoose.connect(MONGODB_URI, {
   .then(async () => {
     console.log('Connected to MongoDB');
     
-    // Auto-seed database on first run
-    await seedDatabaseOnce();
+   
   })
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Auto-seeding function
-async function seedDatabaseOnce() {
-  try {
-    // Check if we need to seed by looking for existing data
-    const songCount = await SongRequest.countDocuments();
-    const adviceCount = await Advice.countDocuments();
-    
-    if (songCount === 0 && adviceCount === 0) {
-      console.log('🌱 Database appears empty, seeding with sample data...');
-      
-      // Sample song request
-      const sampleSong = new SongRequest({
-        songTitle: "All of Me - John Legend",
-        youtubeLink: "https://www.youtube.com/watch?v=450p7goxZqg",
-        requestedBy: "Anônimo"
-      });
-      
-      // Sample advice
-      const sampleAdvice = new Advice({
-        guestName: "Anônimo",
-        yearsMarried: 25,
-        advice: "O segredo de um casamento feliz é nunca dormir brigados. Conversem sempre, riam juntos e lembrem-se de que vocês são uma equipe enfrentando a vida lado a lado.",
-        isAnonymous: true
-      });
-      
-      await sampleSong.save();
-      await sampleAdvice.save();
-      
-      console.log('✅ Sample data added to database!');
-    } else {
-      console.log('ℹ️ Database already has data, skipping seed...');
-    }
-  } catch (error) {
-    console.error('❌ Error seeding database:', error);
-  }
-}
-
-
-
 
 // Define schemas and models
-const guestSchema = new mongoose.Schema({
+/* const guestSchema = new mongoose.Schema({
   name: {
     type: String,
     default: "Anônimo",
@@ -128,7 +88,7 @@ const guestSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+}); */
 
 const songRequestSchema = new mongoose.Schema({
   songTitle: {
@@ -178,7 +138,7 @@ const adviceSchema = new mongoose.Schema({
   }
 });
 
-const quizResultSchema = new mongoose.Schema({
+/* const quizResultSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -198,13 +158,13 @@ const quizResultSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+}); */
 
 // Create models
-const Guest = mongoose.model('Guest', guestSchema);
+/* const Guest = mongoose.model('Guest', guestSchema); */
 const SongRequest = mongoose.model('SongRequest', songRequestSchema);
 const Advice = mongoose.model('Advice', adviceSchema);
-const QuizResult = mongoose.model('QuizResult', quizResultSchema);
+/* const QuizResult = mongoose.model('QuizResult', quizResultSchema); */
 
 
 // Admin routes 
@@ -219,7 +179,7 @@ app.get('/admin', (req, res) => {
   });
 
 // API routes for RSVP
-app.post('/api/rsvp', async (req, res) => {
+/* app.post('/api/rsvp', async (req, res) => {
   try {
     const guest = new Guest(req.body);
     await guest.save();
@@ -232,9 +192,9 @@ app.post('/api/rsvp', async (req, res) => {
       error: error.message 
     });
   }
-});
+}); */
 
-app.get('/api/rsvp', async (req, res) => {
+/* app.get('/api/rsvp', async (req, res) => {
   try {
     const guests = await Guest.find().sort({ timestamp: -1 });
     res.json(guests);
@@ -246,7 +206,7 @@ app.get('/api/rsvp', async (req, res) => {
       error: error.message 
     });
   }
-});
+}); */
 
 // API routes for Song Requests
 app.post('/api/song-requests', async (req, res) => {
@@ -309,7 +269,7 @@ app.get('/api/advice', async (req, res) => {
 });
 
 // API routes for Quiz Results
-app.post('/api/quiz-results', async (req, res) => {
+/* app.post('/api/quiz-results', async (req, res) => {
   try {
     const quizResult = new QuizResult(req.body);
     await quizResult.save();
@@ -322,7 +282,7 @@ app.post('/api/quiz-results', async (req, res) => {
       error: error.message 
     });
   }
-});
+}); */
 
 // Error handling middleware
 app.use((err, req, res, next) => {

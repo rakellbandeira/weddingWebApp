@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 let cached = global.mongoose;
 
@@ -6,7 +6,7 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
-export async function connectToDatabase() {
+async function connectToDatabase() {
   if (cached.conn) {
     return cached.conn;
   }
@@ -36,3 +36,5 @@ export async function connectToDatabase() {
 
   return cached.conn;
 }
+
+module.exports = { connectToDatabase };

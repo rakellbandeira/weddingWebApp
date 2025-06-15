@@ -2,7 +2,7 @@
   "name": "wedding-invitation",
   "version": "1.0.0",
   "description": "Interactive wedding invitation website",
-  "type": "module",
+  
   "dependencies": {
     "mongoose": "^7.5.0"
   },
