@@ -285,8 +285,8 @@ document.addEventListener('DOMContentLoaded', function() {
                   allowfullscreen>
                 </iframe>
                 <p class="now-playing">
-                  Now playing: <strong>${featuredSong.songTitle}</strong>
-                  <small>Requested by: ${featuredSong.requestedBy}</small>
+                  Tocando agora: <strong>${featuredSong.songTitle}</strong>
+                  
                 </p>
               </div>
             `;

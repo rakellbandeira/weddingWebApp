@@ -665,9 +665,10 @@
   .song-info {
     display: flex;
     flex-direction: row;
+    gap: 2rem;
   }
 
-  .advice-content{
+  .advice-card{
     background-color: var(--primary-cc);
   }
 
