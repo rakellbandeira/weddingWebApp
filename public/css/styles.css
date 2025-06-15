@@ -657,6 +657,21 @@
     margin-top: 2rem;
   }
   
+  #friends-far{
+    justify-self: center;
+    text-align: center;
+  }
+
+  .song-info {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .advice-content{
+    background-color: var(--primary-cc);
+  }
+
+
   /* Celebrate With Us Section */
   .celebrate-section {
     text-align: center;
