@@ -18,6 +18,9 @@ async function connectToDatabase() {
       throw new Error('Please define the MONGODB_URI environment variable inside .env');
     }
 
+    console.log('MONGODB_URI exists:', !!process.env.MONGODB_URI);
+    console.log('NODE_ENV:', process.env.NODE_ENV);
+
     cached.promise = mongoose.connect(MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
