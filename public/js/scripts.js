@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
 
    
-        fetch('https://wedding-web-app-one.vercel.app/api/quiz-results',{
+        fetch('/api/quiz-results',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
