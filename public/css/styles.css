@@ -8,20 +8,7 @@
     box-sizing: border-box;
   }
   
-  /* Color palette - Easy to modify */
   :root {
-    /* Primary colors */
-    /* --primary-cc: #faf4eb;
-    --primary-color: #8c7a62; 
-    --primary-color-light: #a99c8a;
-    --primary-color-light-light: #dfd6ca;
-    --primary-color-dark: #6e5e4a; */
-    
-    /* Secondary colors */
-    /* --secondary-color: #333333; 
-    --secondary-color-light: #666666;
-    --secondary-color-dark: #1a1a1a; */
-
     --primary-cc: #f7effd ;
     --primary-color: #8f5378 ; 
     --primary-color-light: #9b6ca5 ;
@@ -87,7 +74,6 @@
     margin: 0 auto;
   }
   
-  /* Mobile-first approach */
   .site-header {
     padding: 1rem;
     text-align: center;
@@ -104,7 +90,7 @@
   }
   
   .main-nav ul {
-    display: none; /* Hide on mobile */
+    display: none;
   }
   
   .mobile-menu-toggle {
@@ -221,11 +207,6 @@
   opacity: .4;
 } */
 
-
-
-
-
-  /* Button styles */
   .btn {
     display: inline-block;
     padding: 0.8rem 1.5rem;
@@ -329,31 +310,7 @@
     
   }
   
-  /* RSVP Section */
-  .rsvp-section {
-    text-align: center;
-  }
-  
-  .rsvp-section h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .rsvp-form {
-    max-width: 500px;
-    margin: 2rem auto;
-    text-align: left;
-  }
-  
-  .rsvp-form input,
-  .rsvp-form textarea {
-    width: 100%;
-    padding: 0.8rem;
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 2px;
-    font-family: 'Montserrat', sans-serif;
-  }
+
   
   .form-group {
     margin-bottom: 1.5rem;
@@ -447,7 +404,7 @@
     margin-bottom: 2rem;
   }
   
-  /* Quiz Styles */
+  /* Quiz styles */
   .quiz-container {
     max-width: 600px;
     margin: 0 auto;
@@ -521,7 +478,7 @@
     margin: 1rem 0;
   }
   
-  /* Song Request Styles */
+  /* Song request Styles */
   .song-request-form {
     max-width: 500px;
     margin: 0 auto 2rem;
@@ -598,7 +555,7 @@
     cursor: pointer;
   }
 
-  /* Pagination Controls */
+  /* Pagination controls */
 .pagination-controls {
   display: flex;
   justify-content: center;
@@ -645,7 +602,6 @@
   text-align: center;
 }
   
-  /* Advice Styles */
   .advice-form {
     max-width: 500px;
     margin: 0 auto 2rem;
@@ -690,7 +646,6 @@
     font-size: 0.9rem;
   }
   
-  /* Registry Section */
   .registry-section {
     text-align: center;
     padding: 3rem 1.5rem;
@@ -749,7 +704,6 @@
     margin: 5rem auto 0rem;
   }
 
-  /* Celebrate With Us Section */
   .celebrate-section {
     text-align: center;
     background-color: var(--light-bg);
@@ -814,7 +768,6 @@
     color: var(--primary-color-dark);
   }
   
-  /* Utility Classes */
   .loading {
     text-align: center;
     padding: 1rem;
@@ -851,7 +804,7 @@
   }
 }
   
-  /* Media Queries for Larger Screens */
+  /* Larger Screens */
   @media (min-width: 768px) {
     .section-container {
       padding: 4rem 2rem;
