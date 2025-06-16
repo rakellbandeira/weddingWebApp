@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize mobile menu toggle
     const menuToggle = document.querySelector('.mobile-menu-toggle');
     const mainNav = document.querySelector('.main-nav');
     
@@ -10,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
     
-    // Smooth scrolling for navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -20,11 +18,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (targetElement) {
           window.scrollTo({
-            top: targetElement.offsetTop - 80, // Adjust for header height
+            top: targetElement.offsetTop - 80, 
             behavior: 'smooth'
           });
           
-          // Close mobile menu if open
           if (menuToggle && menuToggle.classList.contains('active')) {
             menuToggle.click();
           }
@@ -32,17 +29,13 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-    // Initialize Quiz
     initQuiz();
     
-    // Initialize Song Request System
     initSongRequests();
     
-    // Initialize Marriage Advice Cards
     initAdviceCards();
   });
 
-  // Quiz (unchanged)
   function initQuiz() {
     const quizContainer = document.getElementById('quiz-container');
     
@@ -52,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let score = 0;
     let questions = [];
     
-    // Fetch questions from JSON file
     fetch('/data/quiz.json')
       .then(response => {
         if (!response.ok) {
@@ -117,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
         score++;
       }
       
-      // Show fun fact
       const funFact = questions[currentQuestion].funFact;
       
       quizContainer.innerHTML += `
@@ -154,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Song Request System with Pagination
   function initSongRequests() {
     const songForm = document.getElementById('songRequestForm');
     let allSongs = [];
@@ -173,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
         requestedBy: 'Anônimo'
       };
       
-      // Validate YouTube link if provided
       if (songData.youtubeLink && 
           !songData.youtubeLink.includes('youtube.com') && 
           !songData.youtubeLink.includes('youtu.be')) {
@@ -181,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Show loading state
       document.getElementById('songSubmitBtn').textContent = 'Enviando...';
       document.getElementById('songSubmitBtn').disabled = true;
       
@@ -199,20 +187,16 @@ document.addEventListener('DOMContentLoaded', function() {
         return response.json();
       })
       .then(data => {
-        // Reset button text
         document.getElementById('songSubmitBtn').textContent = 'Enviar música';
         document.getElementById('songSubmitBtn').disabled = false;
         
-        // Show confirmation and reset form
         document.getElementById('songRequestConfirmation').style.display = 'block';
         songForm.reset();
                 
-        // Hide confirmation after 3 seconds
         setTimeout(() => {
           document.getElementById('songRequestConfirmation').style.display = 'none';
         }, 3000);
         
-        // Refresh playlist
         loadPlaylist();
       })
       .catch(error => {
@@ -225,12 +209,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     loadPlaylist();
     
-    // Function to load and display the YouTube playlist with pagination
     function loadPlaylist() {
       const playlistContainer = document.getElementById('youtube-playlist');
       if (!playlistContainer) return;
       
-      // Show loading state
       playlistContainer.innerHTML = '<p class="loading">Carregando playlist...</p>';
     
       fetch('/api/song-requests')
@@ -266,7 +248,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       let playlistHTML = '<p id="youtube-p" >Lista de músicas já sugeridas:</p>';
        
-      // Display featured video (first song of current page)
       const featuredSong = songsToDisplay[0];
       const featuredVideoId = extractYouTubeId(featuredSong.youtubeLink);
       
@@ -302,7 +283,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
       }
       
-      // List songs for current page
       playlistHTML += '<ul class="song-list">';
       
       songsToDisplay.forEach((song, index) => {
@@ -329,7 +309,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       
       
-      // Add click handlers to play buttons
       document.querySelectorAll('.play-button').forEach(button => {
         button.addEventListener('click', function() {
           const videoId = this.getAttribute('data-video-id');
@@ -337,14 +316,12 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.featured-video iframe').src = 
               `https://www.youtube.com/embed/${videoId}`;
             
-            // Update now playing text
             const songItem = this.closest('.song-item');
             const title = songItem.querySelector('.song-title').textContent;
             
             document.querySelector('.now-playing').innerHTML = 
               `Tocando agora: <strong>${title}</strong>`;
             
-            // Update active class
             document.querySelectorAll('.song-item').forEach(item => {
               item.classList.remove('active');
             });
@@ -354,14 +331,12 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
 
-    // Global function for pagination
     window.changeSongPage = function(page) {
       currentSongPage = page;
       displaySongsPage(page);
     };
   }
   
-  // Marriage Advice Cards with Pagination
   function initAdviceCards() {
     const adviceForm = document.getElementById('adviceForm');
     let allAdvice = [];
@@ -370,7 +345,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (!adviceForm) return;
     
-    // Load existing advice when page loads
     loadAdvice();
     
     adviceForm.addEventListener('submit', function(e) {
@@ -384,7 +358,6 @@ document.addEventListener('DOMContentLoaded', function() {
         isAnonymous: true
       };
       
-      // Show loading state
       document.getElementById('adviceSubmitBtn').textContent = 'Enviando...';
       document.getElementById('adviceSubmitBtn').disabled = true;
       
@@ -402,20 +375,16 @@ document.addEventListener('DOMContentLoaded', function() {
         return response.json();
       })
       .then(data => {
-        // Reset button
         document.getElementById('adviceSubmitBtn').textContent = 'Enviar';
         document.getElementById('adviceSubmitBtn').disabled = false;
         
-        // Show confirmation
         document.getElementById('adviceConfirmation').style.display = 'block';
         adviceForm.reset();
         
-        // Hide confirmation after 3 seconds
         setTimeout(() => {
           document.getElementById('adviceConfirmation').style.display = 'none';
         }, 3000);
         
-        // Refresh advice display
         loadAdvice();
       })
       .catch(error => {
@@ -426,12 +395,10 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-    // Function to load and display advice with pagination
     function loadAdvice() {
       const adviceContainer = document.getElementById('advice-container');
       if (!adviceContainer) return;
       
-      // Show loading state
       adviceContainer.innerHTML = '<p class="loading">Carregando conselhos...</p>';
       
       fetch('/api/advice')
@@ -504,14 +471,12 @@ document.addEventListener('DOMContentLoaded', function() {
       adviceContainer.innerHTML = adviceHTML;
     }
 
-    // Global function for pagination
     window.changeAdvicePage = function(page) {
       currentAdvicePage = page;
       displayAdvicePage(page);
     };
   }
   
-  // Helper function to extract YouTube video ID
   function extractYouTubeId(url) {
     if (!url) return null;
     
